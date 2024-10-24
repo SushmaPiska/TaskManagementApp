@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Apply box-sizing to all elements */
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.leftMenu{
+    /* position:fixed; */
+    height: 100%;
+    border-right: 1px solid #EDF5FE;
+    padding: 2.3rem;
+    box-sizing: border-box;
+    flex: 1;
+}
+.header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.heading{
+    font-weight: 700;
+}
+.menuItem{
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    width: 100%;
+    color: #707070;
+    cursor: pointer;
+}
+.icon{
+    margin-right: 1.5rem;
+}
+.logout{
+    position: fixed;
+    bottom: 5rem;
+    left: 3rem;
+    display: flex;
+    align-items: center;
+    color: #CF3636;
+    cursor: pointer;
+}
+.rightContainer{
+    height: 100vh;
+   width: 85%;
+   overflow-y: scroll;
+}

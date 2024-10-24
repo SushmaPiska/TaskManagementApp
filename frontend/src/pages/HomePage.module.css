@@ -1,0 +1,61 @@
+.container{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+  
+  }
+  .left{
+    height: 100%;
+    width:55%;
+    background-color: #17A2B8;
+    display: flex;
+    flex-direction: column;
+  }
+  .leftContainer{
+    height: 100%;
+    margin: auto auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    
+    gap: 21rem;
+  }
+  .imageContainer{
+  margin-left: 4rem;
+    position: relative;
+  }
+  .dollBack{
+    position:absolute;
+    width: 18rem;
+    top: -3.5rem;
+    left: -1.2rem;
+  }
+  .doll{
+    width: 15rem;
+    position:absolute;
+    top: 0;
+    left: 0;
+  }
+  .textContainer{
+    color: white;
+  }
+  .headLine{
+    font-size: 1.9rem;
+    font-weight: 550;
+    letter-spacing: 0.03rem;
+    word-spacing: 0.01rem;
+    margin-bottom: 0.5rem;
+  
+  }
+  .tagLine{
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  
+  
+  .right{
+    height: 100%;
+  flex: 1;
+  }
