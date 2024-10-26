@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+todo
+copy data.txt
 
 # Editor directories and files
 .vscode/*
@@ -23,6 +26,3 @@ dist-ssr
 *.sln
 *.sw?
 
-.env
-todo
-copy data.txt
