@@ -1,23 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import styles from "./Board.module.css";
 import people from "../assets/people.png";
 import collapse_all from "../assets/collapse-all.png";
 import NewTaskPopup from "./NewTaskPopup";
-import BacklogSection from "./BacklogSection";
-import ToDoSection from "./ToDoSection";
-import InProgressSection from "./InProgressSection";
-import DoneSection from "./DoneSection";
+import Section from "./Section.jsx";
 
-function Board() {
-  const [isOpen, setIsOpen] = useState(false);
+
+function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks}) {
+
+
   const popupRef = useRef();
 
-  const openPopup = () => setIsOpen(true);
-  const closePopup = () => setIsOpen(false);
-
-  const handleNewTaskPopup = () => {};
+  
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -44,47 +40,45 @@ function Board() {
             <h3>Backlog</h3>
             <img src={collapse_all} alt="" />
           </div>
-          <BacklogSection />
+          <Section tasks={backlogTasks} />
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>To do</h3>
 
-            {/* <h1 onClick={handleNewTaskPopup}>+</h1> */}
+           
 
             <Popup
               className={styles.popup}
               // contentStyle={{ width: "45%" }}
-              trigger={
-                <h1 className={styles.addButton} onClick={openPopup}>
-                  +
-                </h1>
-              }
+              trigger={<h3 className={styles.addButton}>+</h3>}
               modal
               nested
-              open={isOpen}
-              onClose={() => setIsOpen(false)}
               ref={popupRef}
+              
             >
-              <NewTaskPopup />
+              {(close) => <NewTaskPopup setToDoTasks={setToDoTasks} closePopup={close} />}
+              {/* <NewTaskPopup setToDoTasks={setToDoTasks} /> */}
             </Popup>
-            <img src={collapse_all} alt="" />
+            <img src={collapse_all} alt="" className={styles.collapseAllIcon} />
           </div>
-          <ToDoSection/>
+          <div className={styles.toDo}>
+            <Section tasks={toDoTasks} />
+          </div>
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>In progress</h3>
             <img src={collapse_all} alt="" />
           </div>
-          <InProgressSection/>
+          <Section tasks={inProgressTasks} />
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>Done</h3>
             <img src={collapse_all} alt="" />
           </div>
-          <DoneSection/>
+          <Section tasks={doneTasks} />
         </div>
       </div>
     </div>

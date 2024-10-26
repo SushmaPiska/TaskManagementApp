@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import styles from "./login.module.css";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [error, setError] = useState({
+    email: false,
+    password: false,
+  });
+
   const errorMessages = {
-    
     email: {
       message: "Email is required",
       isValid: email.length > 0,
@@ -24,7 +28,6 @@ function Login() {
         setError((error) => ({ ...error, password: true }));
       },
     },
-    
   };
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,22 +41,27 @@ function Login() {
     });
     if (!isError) {
       try {
-        Axios.post(
+        axios.post(
           "http://localhost:8000/api/auth/login",
           { email: email, password: password },
           { withCredentials: true }
         )
           .then((res) => {
             // if (response.data.status) {
-              const token = res.data.token;
-              localStorage.setItem("token", token);
+            const token = res.data.token;
+            localStorage.setItem("token", token);
             navigate("/dashboard");
             console.log("loggedin successfully");
-            
+
             // }
           })
-          .catch((error) => {
-            console.log(error);
+          .catch((e) => {
+            console.log("Error message: " + e.message);
+            if (e.response) {
+              console.log("Server response:", e.response.data); 
+            } else {
+              console.log("Error details:", e);
+            }
           });
       } catch (error) {
         console.error(
@@ -64,7 +72,7 @@ function Login() {
     }
   };
   const handleSignup = () => {
-    navigate("/signup");
+    navigate("/");
   };
   return (
     <div className={styles.container}>
@@ -77,6 +85,9 @@ function Login() {
           className={styles.inputItem + " " + styles.email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {error.email && (
+          <p className={styles.errorText}>{errorMessages.email.message}</p>
+        )}
         <input
           type="password"
           placeholder="Password"
@@ -84,6 +95,9 @@ function Login() {
           className={styles.inputItem + " " + styles.password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {error.password && (
+          <p className={styles.errorText}>{errorMessages.password.message}</p>
+        )}
       </div>
       <button className={styles.loginBtn} onClick={handleLogin}>
         Login

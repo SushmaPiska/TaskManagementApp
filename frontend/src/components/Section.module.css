@@ -1,0 +1,11 @@
+.container{
+    padding: 0 0.5rem 0 1rem ;
+    height: 29rem;
+    overflow-y: auto;
+    /* background-color: blueviolet; */
+    box-sizing: border-box;
+}
+.card{
+    margin: 1rem 0;
+
+}

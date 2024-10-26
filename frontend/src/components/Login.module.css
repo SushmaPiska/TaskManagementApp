@@ -34,10 +34,11 @@
     background-position: 0.4rem 0.4rem;
   }
 .registerBtn{
-    border: none;
-    outline: none;
-    background-color: #17A2B8;
-    color: white;
+  
+
+    border: 2px solid #17A2B8;
+    color: #17A2B8;
+    background: transparent;
     border-radius: 2.2rem;
     height: 2.8rem;
     letter-spacing: 0.03rem;
@@ -50,13 +51,15 @@
     font-size: 1rem;
 }
 .loginBtn{
+    border: none;
+    outline: none;
     height: 2.8rem;
+    color: white;
     letter-spacing: 0.03rem;
     font-size: 1rem;
-    border: 2px solid #17A2B8;
+    background-color: #17A2B8;
     border-radius: 2.2rem;
-    color: #17A2B8;
-    background: transparent;
+   
     cursor: pointer;
 
 }

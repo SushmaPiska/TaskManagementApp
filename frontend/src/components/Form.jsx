@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Form.module.css";
 
-function FormField({ name, type, placeholder, value, onChange }) {
+function FormField({ name, type, placeholder, value, onChange ,className}) {
   return (
     <>
       <input
@@ -10,6 +10,7 @@ function FormField({ name, type, placeholder, value, onChange }) {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        className={className}
       />
     </>
   );
@@ -19,7 +20,7 @@ function Form({ formFields, onSubmit, error, errorMessages }) {
     <>
       <form onSubmit={onSubmit}>
         {formFields.map((field, index) => (
-          <>
+          <div className={field.className}>
             <FormField
               value={field.value}
               onChange={field.onChange}
@@ -27,11 +28,12 @@ function Form({ formFields, onSubmit, error, errorMessages }) {
               name={field.name}
               type={field.type}
               placeholder={field.placeholder}
+            
             />
             {error[field.name] ? (
               <p>{errorMessages[field.name].message}</p>
             ) : null}
-          </>
+          </div>
         ))}
         <button type="submit">submit</button>
       </form>
