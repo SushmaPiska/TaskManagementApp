@@ -12,6 +12,14 @@
 /////////////////////////package.json////////////////
 "scripts":"npm install && npm install --prefix frontend && npm run build --prefix frontend"
 "start":"node backend/server.js",
+/////////////////
+chatgpt//
+-----------
+  "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run start --prefix frontend\" \"nodemon backend/server.js\"",
+    "build": "cd frontend && npm run build",
+    "server": "nodemon backend/server.js",
+    "dev": "cd frontend && npm run dev"
 
 /////////////////////////////
 /////registerPage
