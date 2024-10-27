@@ -134,7 +134,7 @@ function TaskCard({
         modal
         nested
         className={styles.popup}
-        contentStyle={{ width: "30%" }}
+        contentStyle={{ width: "25%" }}
       >
         <DeletePopup closePopup={closeDeletePopup} taskId={taskId} />
       </Popup>

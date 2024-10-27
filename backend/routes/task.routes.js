@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTask } from '../controllers/task.controller.js';
+import { createTask, deleteOneTypeTasks } from '../controllers/task.controller.js';
 import  authorization  from '../middlewares/authorization.js';
 
 import { deleteTask } from '../controllers/task.controller.js';
@@ -30,4 +30,5 @@ router.put('/update/:id',
 router.put('/updateTaskType/:id',
     // authorization,
     updateTaskType)
+router.delete('/deleteOneTypeTasks',deleteOneTypeTasks)
 export default router

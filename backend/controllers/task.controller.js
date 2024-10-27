@@ -154,4 +154,16 @@ export const updateTaskType = async (req, res) => {
     console.log(error);
     res.status(400).json({ message: "Task not updated" });
   }
-};
+}
+
+export const deleteOneTypeTasks=async(req,res)=>{
+  try {
+    const {taskType}=req.body
+    const result = await Task.deleteMany({ taskType: taskType });
+    res.status(200).json({ message: 'Tasks deleted successfully', deletedCount: result.deletedCount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error deleting tasks' });
+  }
+}
+

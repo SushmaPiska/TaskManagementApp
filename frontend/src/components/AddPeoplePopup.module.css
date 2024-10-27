@@ -1,0 +1,39 @@
+.container{
+    padding: 1rem;
+}
+.title{
+    margin-left: 1rem;
+}
+.emailInput{
+    width: 100%;
+    outline: none;
+    border: 1px solid #767575;
+    padding: 0.7rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+    font-size: 1rem;
+
+}
+.cancelBtn{
+    border: 1px solid #CF3636;
+    border-radius: 12px;
+    color: #CF3636;
+    outline: none;
+    background: transparent;
+    padding: 0.5rem;
+    width: 48%;
+    cursor: pointer;
+}
+.addBtn{
+    outline: none;
+    border: none;
+    border-radius: 12px;
+    background-color: #17A2B8;
+    box-shadow: 0px 2px 12px 0px #82698C33;
+    color: white;
+    padding: 0.5rem;
+    width: 48%;
+    margin-left: 4%;
+    cursor: pointer;
+
+}

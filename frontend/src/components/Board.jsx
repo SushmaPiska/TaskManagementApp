@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import styles from "./Board.module.css";
@@ -6,16 +7,47 @@ import people from "../assets/People.png";
 import collapse_all from "../assets/collapse-all.png";
 import NewTaskPopup from "./NewTaskPopup";
 import Section from "./Section.jsx";
+import AddPeoplePopup from "./AddPeoplePopup.jsx";
+import AddedPeopleSuccess from "./AddedPeopleSuccess.jsx";
 
-
-function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks}) {
-
+function Board({
+  backlogTasks,
+  toDoTasks,
+  inProgressTasks,
+  doneTasks,
+  setToDoTasks,
+}) {
   const popupRef = useRef();
 
-  const handleAddPeople=()=>{
-    
+  const [isAddPeoplePopupOpen,  setAddPeoplePopupOpen] =useState(false)
+  const [taskType,setTaskType]=useState()
+  const openAddPeoplePopup =()=>{
+    setAddPeoplePopupOpen(true)
   }
-  
+  const closeAddPeoplePopup =()=>{
+    setAddPeoplePopupOpen(false)
+  }
+
+  const handleAddPeople = () => {};
+
+  const handleCollapse = (taskType) => {
+    console.log(taskType);
+    axios
+      .delete('http://localhost:8000/api/auth/deleteOneTypeTasks', {
+        data: { taskType: taskType }
+      })
+      .then((res) => {
+        console.log("Tasks deleted successfully:", res.data);
+      })
+      .catch((e) => {
+        console.log("Error message: " + e.message);
+        if (e.response) {
+          console.log("Server response:", e.response.data);
+        } else {
+          console.log("Error details:", e);
+        }
+      });
+  };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -23,10 +55,21 @@ function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks})
         <div className={styles.date}>12th Jan, 2024</div>
         <div className={styles.headerOptions}>
           <h1>Board</h1>
-          <div className={styles.addPeople} onClick={handleAddPeople}>
+          <div className={styles.addPeople} onClick={openAddPeoplePopup}>
             <img src={people} alt="" />
             <p>Add People</p>
           </div>
+
+          <Popup
+            open={isAddPeoplePopupOpen}
+            onClose={closeAddPeoplePopup}
+            modal
+            nested
+            className={styles.popup}
+            contentStyle={{ width: "30%" }}
+          >
+            <AddPeoplePopup closePopup={closeAddPeoplePopup} />
+          </Popup>
 
           <select name="" id="" className={styles.dropdown}>
             <option value="Today">Today</option>
@@ -40,7 +83,7 @@ function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks})
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>Backlog</h3>
-            <img src={collapse_all} alt="" />
+            <img src={collapse_all} onClick={() => handleCollapse("backlog")} />
           </div>
           <Section tasks={backlogTasks} />
         </div>
@@ -54,12 +97,13 @@ function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks})
               modal
               nested
               ref={popupRef}
-              
             >
-              {(close) => <NewTaskPopup setToDoTasks={setToDoTasks} closePopup={close} />}
+              {(close) => (
+                <NewTaskPopup setToDoTasks={setToDoTasks} closePopup={close} />
+              )}
               {/* <NewTaskPopup setToDoTasks={setToDoTasks} /> */}
             </Popup>
-            <img src={collapse_all} alt="" className={styles.collapseAllIcon} />
+            <img src={collapse_all} alt="" className={styles.collapseAllIcon} onClick={() => handleCollapse("toDo")}/>
           </div>
           <div className={styles.toDo}>
             <Section tasks={toDoTasks} />
@@ -68,14 +112,14 @@ function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks})
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>In progress</h3>
-            <img src={collapse_all} alt="" />
+            <img src={collapse_all} alt="" onClick={() => handleCollapse("inProgress")}/>
           </div>
           <Section tasks={inProgressTasks} />
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>Done</h3>
-            <img src={collapse_all} alt="" />
+            <img src={collapse_all} alt="" onClick={() => handleCollapse("done")}/>
           </div>
           <Section tasks={doneTasks} />
         </div>

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import styles from "./Dashboard.module.css";
 import codesandbox from "../assets/codesandbox.png";
 import layoutIcon from "../assets/layout.png";
@@ -17,6 +19,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import axios from "axios";
+import LogoutPopup from "../components/LogoutPopup.jsx";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -30,6 +33,16 @@ function Dashboard() {
   const handleSettings = () => {
     navigate("settings");
   };
+
+  const [isLogoutPopupOpen,setLogoutPopupOpen] =useState(false)
+
+  const openLogoutPopup =()=>{
+    setLogoutPopupOpen(true);
+  }
+  const  closeLogoutPopup =()=>{
+    setLogoutPopupOpen(false);
+  }
+
   const handleLogout = async () => {  
     try {
       axios.post(
@@ -67,19 +80,24 @@ function Dashboard() {
             <img src={settingsIcon} alt="" className={styles.icon} />
             <p className={styles.settings}>Settings</p>
           </div>
-          <div className={styles.logout} onClick={handleLogout}>
+          <div className={styles.logout} onClick={openLogoutPopup}>
             <img src={logoutIcon} alt="" className={styles.icon} />
             <p>Log out</p>
           </div>
+          <Popup
+            open={isLogoutPopupOpen}
+            onClose={closeLogoutPopup}
+            modal
+            nested
+            className={styles.popup}
+            contentStyle={{ width: "25%" }}
+          >
+            <LogoutPopup closePopup={closeLogoutPopup} handleLogout={handleLogout}/>
+          </Popup>
         </div>
         <div className={styles.rightContainer}>
           <Outlet/>
-          {/* <Routes>
-            <Route path="/board" element={<Board />}></Route>
-            <Route path="/analytics" element={<Analytics />}></Route>
-            <Route path="/settings" element={<Settings />}></Route>
-          </Routes> */}
-          {/* <Board /> */}
+         
         </div>
       </div>
   );
