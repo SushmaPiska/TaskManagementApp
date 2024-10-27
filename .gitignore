@@ -12,8 +12,8 @@ dist/
 dist-ssr/
 *.local
 *.env
-todo
-copyData.txt
+todo/
+copyData.txt/
 
 # Editor directories and files
 .vscode/*

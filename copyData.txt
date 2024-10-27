@@ -1,0 +1,162 @@
+  "title":"task222662",
+  "priority":"high",
+  "assignee":"ss",
+  "checkList":{"check1":true,"check2":false},
+  "dueDate":"2024-10-22"
+
+  {
+
+ "email":"scxx@x.com",
+ "password":"password"
+}
+/////////////////////////package.json////////////////
+"scripts":"npm install && npm install --prefix frontend && npm run build --prefix frontend"
+"start":"node backend/server.js",
+
+/////////////////////////////
+/////registerPage
+// import { useState } from "react";
+// import Form from "./Form.jsx";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import styles from "./Register.module.css";
+// export default function Register() {
+//   console.log(styles)
+//   const navigate = useNavigate();
+
+//   const token=localStorage.getItem("token");
+//   if(token) {
+//     console.log("token: " + token);
+//     navigate("/dashboard");
+//   }
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     email: "",
+//     password: "",
+//     confirmPassword: "",
+//   });
+//   const [error, setError] = useState({
+//     name: false,
+//     email: false,
+//     password: false,
+//     confirmPassword: false,
+//   });
+//   const formFields = [
+//     {
+//       name: "name",
+//       type: "text",
+//       placeholder: "Name",
+//       value: formData.name,
+//       className: styles.inputItem,
+//       onChange: (e) => {
+//         setFormData({ ...formData, name: e.target.value });
+//       },
+//     },
+//     {
+//       name: "email",
+//       type: "email",
+//       placeholder: "Email",
+//       value: formData.email,
+//       className: styles.inputItem,
+//       onChange: (e) => {
+//         setFormData({ ...formData, email: e.target.value });
+//       },
+//     },
+//     {
+//       name: "password",
+//       type: "password",
+//       placeholder: "Password",
+//       value: formData.password,
+//       className: styles.inputItem,
+//       onChange: (e) => {
+//         setFormData({ ...formData, password: e.target.value });
+//       },
+//     },
+//     {
+//       name: "confirmPassword",
+//       type: "password",
+//       placeholder: "Confirm Password",
+//       value: formData.confirmPassword,
+//       className: styles.inputItem,
+//       onChange: (e) => {
+//         setFormData({ ...formData, confirmPassword: e.target.value });
+//       },
+//     },
+//   ];
+
+//   console.log(error);
+
+//   const errorMessages = {
+//     name: {
+//       message: "Name is required",
+//       isValid: formData.name.length > 0,
+//       onError: () => {
+//         setError((error) => ({ ...error, name: true }));
+//       },
+//     },
+//     email: {
+//       message: "Email is required",
+//       isValid: formData.email.length > 0,
+//       onError: () => {
+//         setError((error) => ({ ...error, email: true }));
+//       },
+//     },
+//     password: {
+//       message: "Password is required",
+//       isValid: formData.password.length > 0,
+//       onError: () => {
+//         setError((error) => ({ ...error, password: true }));
+//       },
+//     },
+//     confirmPassword: {
+//       message: "Passwords do not match",
+//       isValid: formData.confirmPassword === formData.password,
+//       onError: () => {
+//         setError((error) => ({ ...error, confirmPassword: true }));
+//       },
+//     },
+//   };
+//   const onSubmit = async (e) => {
+//     e.preventDefault();
+//     let isError = false;
+
+//     Object.keys(errorMessages).forEach((key) => {
+//       if (!errorMessages[key].isValid) {
+//         isError = true;
+//         errorMessages[key].onError();
+//       }
+//     });
+
+//     if (!isError) {
+//       axios
+//         .post("http://localhost:8000/api/auth/signup", {
+//           name: formData.name,
+//           email: formData.email,
+//           password: formData.password,
+//           confirmPassword: formData.confirmPassword,
+//         })
+//         .then((response) => {
+//           // if(response.data.status){
+//           navigate("/login");
+//           console.log("registered successfully");
+//           // }
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//         });
+//     }
+//   };
+
+//   return (
+//     <div className={styles.inputFields}>
+//       <h1>Register</h1>
+//       <Form
+//         error={error}
+//         formFields={formFields}
+//         onSubmit={onSubmit}
+//         errorMessages={errorMessages}
+
+//       />
+//     </div>
+//   );
+// }

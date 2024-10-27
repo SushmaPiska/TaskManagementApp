@@ -1,0 +1,10 @@
+format date in newtask popup
+password view
+assignee is getting null
+when task is added, it is  not loading autoatically  unless  it is refreshed
+
+
+ngrok for sharing  our  localhost
+command: ngrok http 3000(portnumber)
+render website host---deploy node on render
+--host  backend
