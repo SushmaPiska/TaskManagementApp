@@ -12,6 +12,9 @@ function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks})
 
   const popupRef = useRef();
 
+  const handleAddPeople=()=>{
+    
+  }
   
   return (
     <div className={styles.container}>
@@ -20,7 +23,7 @@ function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks})
         <div className={styles.date}>12th Jan, 2024</div>
         <div className={styles.headerOptions}>
           <h1>Board</h1>
-          <div className={styles.addPeople}>
+          <div className={styles.addPeople} onClick={handleAddPeople}>
             <img src={people} alt="" />
             <p>Add People</p>
           </div>
@@ -44,9 +47,6 @@ function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks})
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>To do</h3>
-
-           
-
             <Popup
               className={styles.popup}
               // contentStyle={{ width: "47%" }}

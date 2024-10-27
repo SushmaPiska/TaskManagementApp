@@ -2,7 +2,7 @@ format date in newtask popup
 password view
 assignee is getting null
 when task is added, it is  not loading autoatically  unless  it is refreshed
-
+without duedate
 
 ngrok for sharing  our  localhost
 command: ngrok http 3000(portnumber)

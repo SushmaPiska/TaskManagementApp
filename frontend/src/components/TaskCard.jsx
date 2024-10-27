@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import styles from "./TaskCard.module.css";
@@ -9,7 +10,17 @@ import { formatDate } from "../../helper/formatDate";
 import { getShortForm } from "../../helper/getShortForm";
 import DeletePopup from "./DeletePopup";
 
-function TaskCard({ taskId, title, priority, assignee, checkList, dueDate, taskType }) {
+function TaskCard({
+  taskId,
+  title,
+  priority,
+  assignee,
+  checkList,
+  dueDate,
+  taskType,
+}) {
+
+
   const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
@@ -24,6 +35,51 @@ function TaskCard({ taskId, title, priority, assignee, checkList, dueDate, taskT
 
   const closeDeletePopup = () => setDeletePopupOpen(false);
 
+  let switchArray;
+  if (taskType === "backlog") {
+    switchArray = ["TODO", "PROGRESS", "DONE"];
+  } else if (taskType === "toDo") {
+    switchArray = ["BACKLOG", "PROGRESS", "DONE"];
+  } else if (taskType === "inProgress") {
+    switchArray = ["BACKLOG", "TODO", "DONE"];
+  } else {
+    switchArray = ["BACKLOG", "TODO", "PROGRESS"];
+  }
+
+  const handleSwitch = (item) => {
+    console.log(taskId)
+    let newType;
+    if (item === "BACKLOG") {
+      newType = "backlog";
+    } else if (item === "PROGRESS") {
+      newType = "inProgress";
+    } else if (item === "DONE") {
+      newType = "done";
+    } else {
+      newType = "toDo";
+    }
+    try {
+      axios
+        .put(`http://localhost:8000/api/auth/updateTaskType/${taskId}`, {
+          taskType: newType,
+        })
+        .then((res) => {
+          console.log(res);
+          console.log("task type updated successfully");
+        })
+        .catch((e) => {
+          console.log("Error message: " + e.message);
+          if (e.response) {
+            console.log("Server response:", e.response.data);
+          } else {
+            console.log("Error details:", e);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   let priorityClass;
   let dueDateClass;
   if (priority === "high") {
@@ -36,8 +92,6 @@ function TaskCard({ taskId, title, priority, assignee, checkList, dueDate, taskT
     priorityClass = styles.low;
     dueDateClass = styles.dueDate;
   }
-
-  let switchArray = ["BACKLOG", "PROGRESS", "DONE"];
 
   return (
     <div className={styles.container}>
@@ -116,7 +170,14 @@ function TaskCard({ taskId, title, priority, assignee, checkList, dueDate, taskT
       <div className={styles.footer}>
         <div className={dueDateClass}>{formatDate(dueDate)}</div>
         {switchArray.map((item, index) => (
-          <div key={index} className={styles.footItem}>
+          <div
+            key={index}
+            className={styles.footItem}
+            value={item}
+            onClick={() => {
+              handleSwitch(item);
+            }}
+          >
             {item}
           </div>
         ))}

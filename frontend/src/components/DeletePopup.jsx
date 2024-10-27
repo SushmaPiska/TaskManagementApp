@@ -33,11 +33,11 @@ function DeletePopup({ closePopup,taskId }) {
 
 return (
   <div className={styles.container}>
-    <h3>Are you sure you want to Delete?</h3>
+    <h4>Are you sure you want to Delete?</h4>
     <button className={styles.deleteBtn} onClick={()=>handleDelete(taskId)} >
       Yes, Delete
     </button>
-    <button className={styles.cancelBtn}>Cancel</button>
+    <button className={styles.cancelBtn} onClick={()=>closePopup()}>Cancel</button>
   </div>
 );
 }

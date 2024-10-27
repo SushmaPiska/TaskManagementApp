@@ -31,10 +31,11 @@ export const createTask = async (req, res) => {
 export const getAllBacklogTasks = async (req, res) => {
   try {
     const isAuthenticated = isAuth(req);
+    const tasks= await Task.find({ taskType: "backlog" })
 
-  const tasks = isAuthenticated
-    ? await Task.find({ taskType: "backlog" })
-    : await Task.find({ taskType: "backlog" }).select("-_id -__v ");
+  // const tasks = isAuthenticated
+  //   ? await Task.find({ taskType: "backlog" })
+  //   : await Task.find({ taskType: "backlog" }).select("-_id -__v ");
   res.status(200).json(tasks);
   } catch (error) {
     console.log(error)
@@ -58,10 +59,11 @@ export const getAllToDoTasks = async (req, res) => {
 export const getAllInProgressTasks = async (req, res) => {
   try {
     const isAuthenticated = isAuth(req);
+    const tasks=await Task.find({ taskType: "inProgress" })
 
-  const tasks = isAuthenticated
-    ? await Task.find({ taskType: "inProgress" })
-    : await Task.find({ taskType: "inProgress" }).select("-_id -__v ");
+  // const tasks = isAuthenticated
+  //   ? await Task.find({ taskType: "inProgress" })
+  //   : await Task.find({ taskType: "inProgress" }).select("-_id -__v ");
   res.status(200).json(tasks);
   } catch (error) {
     console.log(error)
@@ -118,6 +120,32 @@ export const updateTask = async (req, res) => {
     task = await Task.findByIdAndUpdate(
       id,
       { title, priority, assignee: assigneeId, checkList, dueDate },
+      { new: true }
+    );
+
+    res.status(200).json(task);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "Task not updated" });
+  }
+};
+
+export const updateTaskType = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { taskType} = req.body;
+
+    console.log(id);
+    
+
+    let task = await Task.findById(id);
+    console.log(task);
+    if (!task) {
+      return res.status(400).json({ message: "Job not found" });
+    }
+    task = await Task.findByIdAndUpdate(
+      id,
+      { taskType },
       { new: true }
     );
 

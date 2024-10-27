@@ -8,6 +8,7 @@ import { getAllBacklogTasks } from '../controllers/task.controller.js';
 import { getAllToDoTasks } from '../controllers/task.controller.js';
 import { getAllInProgressTasks } from '../controllers/task.controller.js';
 import { getAllDoneTasks } from '../controllers/task.controller.js';
+import { updateTaskType } from '../controllers/task.controller.js';
 
 const router=express.Router();
 
@@ -23,5 +24,10 @@ router.get('/getAllDoneTasks',getAllDoneTasks)
 router.delete("/delete/:id",
     // authorization,
     deleteTask)
-router.put('/update/:id',authorization,updateTask)
+router.put('/update/:id',
+    // authorization,
+    updateTask)
+router.put('/updateTaskType/:id',
+    // authorization,
+    updateTaskType)
 export default router
