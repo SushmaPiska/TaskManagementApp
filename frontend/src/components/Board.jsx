@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import styles from "./Board.module.css";
-import people from "../assets/people.png";
+import people from "../assets/People.png";
 import collapse_all from "../assets/collapse-all.png";
 import NewTaskPopup from "./NewTaskPopup";
 import Section from "./Section.jsx";
