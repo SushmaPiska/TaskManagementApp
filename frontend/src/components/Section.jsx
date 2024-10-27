@@ -8,6 +8,7 @@ function Section({tasks}) {
   
   const [isLoading,setIsLoading]=useState(true);
 
+
 useEffect(() =>{
   setIsLoading(false)
 })
@@ -16,7 +17,8 @@ useEffect(() =>{
       {isLoading? <p>Loading...</p>:
         tasks?.map((task,index)=>(
           <p key={index} className={styles.card}>
-            <TaskCard title={task.title} priority={task.priority} assignee={task.assignee} checkList={task.checkList} dueDate={task.dueDate} taskType={task.taskType}/>
+            
+            <TaskCard taskId={task._id} title={task.title} priority={task.priority} assignee={task.assignee} checkList={task.checkList} dueDate={task.dueDate} taskType={task.taskType}/>
           </p>
         ))
       }

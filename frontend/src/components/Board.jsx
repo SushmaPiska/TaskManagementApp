@@ -10,7 +10,6 @@ import Section from "./Section.jsx";
 
 function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks}) {
 
-
   const popupRef = useRef();
 
   
@@ -50,7 +49,7 @@ function Board({backlogTasks,toDoTasks,inProgressTasks,doneTasks, setToDoTasks})
 
             <Popup
               className={styles.popup}
-              // contentStyle={{ width: "45%" }}
+              // contentStyle={{ width: "47%" }}
               trigger={<h3 className={styles.addButton}>+</h3>}
               modal
               nested

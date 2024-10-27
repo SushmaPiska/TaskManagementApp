@@ -45,9 +45,10 @@ export const getAllToDoTasks = async (req, res) => {
   try {
     const isAuthenticated = isAuth(req);
 
-  const tasks = isAuthenticated
-    ? await Task.find({ taskType: "toDo" })
-    : await Task.find({ taskType: "toDo" }).select("-_id -__v ");
+    const tasks=await Task.find({ taskType: "toDo" });
+  // const tasks = isAuthenticated
+  //   ? await Task.find({ taskType: "toDo" })
+  //   : await Task.find({ taskType: "toDo" }).select("-_id -__v ");
   res.status(200).json(tasks);
   } catch (error) {
     console.log(error)
@@ -71,9 +72,10 @@ export const getAllDoneTasks = async (req, res) => {
   try {
     const isAuthenticated = isAuth(req);
 
-  const tasks = isAuthenticated
-    ? await Task.find({ taskType: "done" })
-    : await Task.find({ taskType: "done" }).select("-_id -__v ");
+    const tasks=await Task.find({"taskType":"done"})
+  // const tasks = isAuthenticated
+  //   ? await Task.find({ taskType: "done" })
+  //   : await Task.find({ taskType: "done" }).select("-_id -__v ");
   res.status(200).json(tasks);
   } catch (error) {
     console.log(error)

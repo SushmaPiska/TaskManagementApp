@@ -20,6 +20,8 @@ router.get('/getAllToDoTasks',getAllToDoTasks)
 router.get('/getAllInProgressTasks',getAllInProgressTasks)
 router.get('/getAllDoneTasks',getAllDoneTasks)
 
-router.delete("/delete/:id",authorization,deleteTask)
+router.delete("/delete/:id",
+    // authorization,
+    deleteTask)
 router.put('/update/:id',authorization,updateTask)
 export default router
