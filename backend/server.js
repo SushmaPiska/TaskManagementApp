@@ -16,10 +16,19 @@ const PORT = process.env.PORT || 8000;
 const __dirname=path.resolve()
 
 app.use(express.json()); 
+const allowedOrigins = ['http://localhost:5173', 'https://taskmanagementapp-4.onrender.com'];
+
 app.use(cors({
-  origin:[ 'http://localhost:5173','https://taskmanagementapp-4.onrender.com'],
-  credentials:true,
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, origin);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
+
 
 app.use(express.static(path.join(__dirname,'/frontend/dist')));
 
