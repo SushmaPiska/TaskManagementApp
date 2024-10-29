@@ -1,23 +1,21 @@
-import axios from 'axios'
+import axios from "axios";
+import { addTokenToHeader } from "../helper/addToken";
 
-export const getAllBacklogTasks=()=>{
-    const tasks=axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/getAllBacklogTasks`)
+export const getAllTasksByType = (taskType) => {
+  const tasks = axios.post("http://localhost:8000/api/auth/getAllTasksByType", {
+    taskType: taskType,
+  });
+  return tasks;
+};
 
-    return tasks;
-}
-export const getAllToDoTasks=()=>{
-    const tasks=axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/getAllToDoTasks`)
+export const getTasksByPriority = (priority ) => {
+  const tasks = axios.post(
+    "http://localhost:8000/api/auth/getTasksByPriority",
+    {
+      priority: priority,
+    }
+  );
+  return tasks;
 
-    return tasks;
-}
-export const getAllInProgressTasks=()=>{
-    const tasks=axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/getAllInProgressTasks`)
-
-    return tasks;
-}
-export const getAllDoneTasks=()=>{
-    const tasks=axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/getAllDoneTasks`)
-
-    return tasks;
-}
-
+  // const tasks=axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/getTasksByPriority`,{priority:priority})
+};

@@ -8,63 +8,59 @@ import Board from "./components/Board";
 import Analytics from "./components/Analytics";
 import Settings from "./components/Settings";
 
-import { getAllBacklogTasks } from "../services/getAllTasks";
-import { getAllToDoTasks } from "../services/getAllTasks.js";
-import { getAllInProgressTasks } from "../services/getAllTasks.js";
-import { getAllDoneTasks } from "../services/getAllTasks.js";
+import { getAllTasksByType } from "../services/getAllTasks";
 
 function App() {
-  
   const [backlogTasks, setBacklogTasks] = useState();
   const [toDoTasks, setToDoTasks] = useState();
   const [inProgressTasks, setInProgressTasks] = useState();
   const [doneTasks, setDoneTasks] = useState();
 
   useEffect(() => {
-    getAllBacklogTasks()
+    getAllTasksByType("backlog")
       .then((res) => {
         setBacklogTasks(res.data);
       })
       .catch((e) => {
         console.log("Error message: " + e.message);
         if (e.response) {
-          console.log("Server response:", e.response.data); 
+          console.log("Server response:", e.response.data);
         } else {
           console.log("Error details:", e);
         }
       });
-    getAllToDoTasks()
+      getAllTasksByType("toDo")
       .then((res) => {
         setToDoTasks(res.data);
       })
       .catch((e) => {
         console.log("Error message: " + e.message);
         if (e.response) {
-          console.log("Server response:", e.response.data); 
+          console.log("Server response:", e.response.data);
         } else {
           console.log("Error details:", e);
         }
       });
-    getAllInProgressTasks()
+      getAllTasksByType("inProgress")
       .then((res) => {
         setInProgressTasks(res.data);
       })
       .catch((e) => {
         console.log("Error message: " + e.message);
         if (e.response) {
-          console.log("Server response:", e.response.data); 
+          console.log("Server response:", e.response.data);
         } else {
           console.log("Error details:", e);
         }
       });
-    getAllDoneTasks()
+      getAllTasksByType("done")
       .then((res) => {
         setDoneTasks(res.data);
       })
       .catch((e) => {
         console.log("Error message: " + e.message);
         if (e.response) {
-          console.log("Server response:", e.response.data); 
+          console.log("Server response:", e.response.data);
         } else {
           console.log("Error details:", e);
         }
@@ -80,8 +76,29 @@ function App() {
           <Route path="login" element={<Login />} />
         </Route>
         <Route path="/dashboard" element={<Dashboard />}>
-          <Route index element={<Board backlogTasks={backlogTasks} toDoTasks={toDoTasks} inProgressTasks={inProgressTasks} doneTasks={doneTasks} setToDoTasks={setToDoTasks}/>}></Route>
-          <Route path="analytics" element={<Analytics  backlogTasks={backlogTasks} toDoTasks={toDoTasks} inProgressTasks={inProgressTasks} doneTasks={doneTasks}/>}></Route>
+          <Route
+            index
+            element={
+              <Board
+                backlogTasks={backlogTasks}
+                toDoTasks={toDoTasks}
+                inProgressTasks={inProgressTasks}
+                doneTasks={doneTasks}
+                setToDoTasks={setToDoTasks}
+              />
+            }
+          ></Route>
+          <Route
+            path="analytics"
+            element={
+              <Analytics
+                backlogTasks={backlogTasks}
+                toDoTasks={toDoTasks}
+                inProgressTasks={inProgressTasks}
+                doneTasks={doneTasks}
+              />
+            }
+          ></Route>
           <Route path="settings" element={<Settings />}></Route>
         </Route>
       </Routes>

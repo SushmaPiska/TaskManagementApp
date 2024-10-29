@@ -28,61 +28,85 @@ export const createTask = async (req, res) => {
   }
 };
 
+export const getTaskById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const task = await Task.findById(id);
+    if (!task) return res.status(404).json({ message: "Task not found" });
+    res.status(200).json(task);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving task data" });
+  }
+};
+
+export const getAllTasksByType = async (req, res) => {
+  try {
+    const isAuthenticated = isAuth(req);
+    const {taskType}=req.body
+    const tasks= await Task.find({ taskType: taskType })
+    // const tasks = isAuthenticated
+    //   ? await Task.find({ taskType: taskType })
+    //   : await Task.find({ taskType: taskType }).select("-_id -__v ");
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: `Unable to get all  ${taskType} tasks` });
+  }
+};
 export const getAllBacklogTasks = async (req, res) => {
   try {
     const isAuthenticated = isAuth(req);
-    const tasks= await Task.find({ taskType: "backlog" })
+    // const tasks= await Task.find({ taskType: "backlog" })
 
-  // const tasks = isAuthenticated
-  //   ? await Task.find({ taskType: "backlog" })
-  //   : await Task.find({ taskType: "backlog" }).select("-_id -__v ");
-  res.status(200).json(tasks);
+    const tasks = isAuthenticated
+      ? await Task.find({ taskType: "backlog" })
+      : await Task.find({ taskType: "backlog" }).select("-_id -__v ");
+    res.status(200).json(tasks);
   } catch (error) {
-    console.log(error)
-    res.status(400).json({message:"Unable to get all  backlog tasks"})
+    console.log(error);
+    res.status(400).json({ message: "Unable to get all  backlog tasks" });
   }
 };
 export const getAllToDoTasks = async (req, res) => {
   try {
     const isAuthenticated = isAuth(req);
 
-    const tasks=await Task.find({ taskType: "toDo" });
-  // const tasks = isAuthenticated
-  //   ? await Task.find({ taskType: "toDo" })
-  //   : await Task.find({ taskType: "toDo" }).select("-_id -__v ");
-  res.status(200).json(tasks);
+    const tasks = await Task.find({ taskType: "toDo" });
+    // const tasks = isAuthenticated
+    //   ? await Task.find({ taskType: "toDo" })
+    //   : await Task.find({ taskType: "toDo" }).select("-_id -__v ");
+    res.status(200).json(tasks);
   } catch (error) {
-    console.log(error)
-    res.status(400).json({message:"Unable to get all  todo tasks"})
+    console.log(error);
+    res.status(400).json({ message: "Unable to get all  todo tasks" });
   }
 };
 export const getAllInProgressTasks = async (req, res) => {
   try {
     const isAuthenticated = isAuth(req);
-    const tasks=await Task.find({ taskType: "inProgress" })
+    const tasks = await Task.find({ taskType: "inProgress" });
 
-  // const tasks = isAuthenticated
-  //   ? await Task.find({ taskType: "inProgress" })
-  //   : await Task.find({ taskType: "inProgress" }).select("-_id -__v ");
-  res.status(200).json(tasks);
+    // const tasks = isAuthenticated
+    //   ? await Task.find({ taskType: "inProgress" })
+    //   : await Task.find({ taskType: "inProgress" }).select("-_id -__v ");
+    res.status(200).json(tasks);
   } catch (error) {
-    console.log(error)
-    res.status(400).json({message:"Unable to get all in progress tasks"})
+    console.log(error);
+    res.status(400).json({ message: "Unable to get all in progress tasks" });
   }
 };
 export const getAllDoneTasks = async (req, res) => {
   try {
     const isAuthenticated = isAuth(req);
 
-    const tasks=await Task.find({"taskType":"done"})
-  // const tasks = isAuthenticated
-  //   ? await Task.find({ taskType: "done" })
-  //   : await Task.find({ taskType: "done" }).select("-_id -__v ");
-  res.status(200).json(tasks);
+    const tasks = await Task.find({ taskType: "done" });
+    // const tasks = isAuthenticated
+    //   ? await Task.find({ taskType: "done" })
+    //   : await Task.find({ taskType: "done" }).select("-_id -__v ");
+    res.status(200).json(tasks);
   } catch (error) {
-    console.log(error)
-    res.status(400).json({message:"Unable to get all  done tasks"})
-
+    console.log(error);
+    res.status(400).json({ message: "Unable to get all  done tasks" });
   }
 };
 
@@ -133,37 +157,45 @@ export const updateTask = async (req, res) => {
 export const updateTaskType = async (req, res) => {
   try {
     const { id } = req.params;
-    const { taskType} = req.body;
-
-    console.log(id);
-    
+    const { taskType } = req.body;
 
     let task = await Task.findById(id);
     console.log(task);
     if (!task) {
       return res.status(400).json({ message: "Job not found" });
     }
-    task = await Task.findByIdAndUpdate(
-      id,
-      { taskType },
-      { new: true }
-    );
+    task = await Task.findByIdAndUpdate(id, { taskType }, { new: true });
 
     res.status(200).json(task);
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: "Task not updated" });
   }
-}
+};
 
-export const deleteOneTypeTasks=async(req,res)=>{
+export const deleteOneTypeTasks = async (req, res) => {
   try {
-    const {taskType}=req.body
+    const { taskType } = req.body;
     const result = await Task.deleteMany({ taskType: taskType });
-    res.status(200).json({ message: 'Tasks deleted successfully', deletedCount: result.deletedCount });
+    res
+      .status(200)
+      .json({
+        message: "Tasks deleted successfully",
+        deletedCount: result.deletedCount,
+      });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error deleting tasks' });
+    res.status(500).json({ message: "Error deleting tasks" });
   }
-}
+};
 
+export const getTasksByPriority = async (req, res) => {
+  try {
+    const { priority } = req.body;
+    const result = await Task.find({ priority: priority });
+    res.status(200).json(result.length);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching tasks" });
+  }
+};

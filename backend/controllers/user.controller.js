@@ -102,4 +102,22 @@ export const logout = (req, res) => {
 
 //select all  users
 
+export const updateUserName = async (req,res) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+    let user = await User.findById(id);
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    user = await User.findByIdAndUpdate(id, { name }, { new: true });
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "name not updated" });
+  }
+};
+
 export const getUsers = () => {};

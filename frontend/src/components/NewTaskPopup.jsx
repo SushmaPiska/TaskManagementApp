@@ -11,7 +11,7 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
   const [assignee, setAssignee] = useState("");
   const [checkList, setCheckList] = useState({});
   const [checkListItem, setCheckListItem] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState(null);
 
   const handleTaskSave = async (e) => {
     e.preventDefault();
@@ -167,7 +167,7 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
           className={styles.selectDueDate}
           onChange={(e) => setDueDate(e.target.value)}
         />
-        <button className={styles.cancelBtn}>Cancel</button>
+        <button className={styles.cancelBtn} onClick={closePopup}>Cancel</button>
         <button className={styles.saveBtn} onClick={handleTaskSave}>
           Save
         </button>

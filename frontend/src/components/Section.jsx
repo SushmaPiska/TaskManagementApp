@@ -4,7 +4,7 @@ import TaskCard from "./TaskCard";
 
 
 
-function Section({tasks}) {
+function Section({tasks,setDateSpace}) {
   
   const [isLoading,setIsLoading]=useState(true);
 
@@ -17,8 +17,7 @@ useEffect(() =>{
       {isLoading? <p>Loading...</p>:
         tasks?.map((task,index)=>(
           <p key={index} className={styles.card}>
-            
-            <TaskCard taskId={task._id} title={task.title} priority={task.priority} assignee={task.assignee} checkList={task.checkList} dueDate={task.dueDate} taskType={task.taskType}/>
+            <TaskCard taskId={task._id} title={task.title} priority={task.priority} assignee={task.assignee} checkList={task.checkList} dueDate={task.dueDate} taskType={task.taskType} setDateSpace={setDateSpace}/>
           </p>
         ))
       }

@@ -18,6 +18,7 @@ function TaskCard({
   checkList,
   dueDate,
   taskType,
+  setDateSpace
 }) {
 
 
@@ -35,6 +36,20 @@ function TaskCard({
 
   const closeDeletePopup = () => setDeletePopupOpen(false);
 
+
+  const handleShare=async()=>{
+    try {
+      console.log("i'm  sharing")
+      const link=`http://localhost:8000/api/auth/getTaskById/${taskId}`;
+      console.log("hello")
+      console.log(link)
+      await navigator.clipboard.writeText(link);
+      setDateSpace(false)
+      setTimeout(() => setDateSpace(true), 3000);
+    } catch (error) {
+      console.log("error in sharing" +error)
+    }
+  }
   let switchArray;
   if (taskType === "backlog") {
     switchArray = ["TODO", "PROGRESS", "DONE"];
@@ -115,7 +130,10 @@ function TaskCard({
             <li className={styles.menuItem} onClick={menuToggle}>
               Edit
             </li>
-            <li className={styles.menuItem} onClick={menuToggle}>
+            <li className={styles.menuItem} onClick={()=>{
+              menuToggle()
+              handleShare()
+            }}>
               Share
             </li>
             <li

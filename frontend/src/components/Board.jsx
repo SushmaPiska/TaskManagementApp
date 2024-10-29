@@ -9,6 +9,7 @@ import NewTaskPopup from "./NewTaskPopup";
 import Section from "./Section.jsx";
 import AddPeoplePopup from "./AddPeoplePopup.jsx";
 import AddedPeopleSuccess from "./AddedPeopleSuccess.jsx";
+import { getTodayDate } from "../../helper/formatDate.js";
 
 function Board({
   backlogTasks,
@@ -17,24 +18,39 @@ function Board({
   doneTasks,
   setToDoTasks,
 }) {
+  
+
+  const [todayDate, setTodayDate] = useState();
+  const [dateSpace, setDateSpace] = useState(true);
+  const [duration, setDuration] = useState("This week");
+
   const popupRef = useRef();
 
-  const [isAddPeoplePopupOpen,  setAddPeoplePopupOpen] =useState(false)
-  const [taskType,setTaskType]=useState()
-  const openAddPeoplePopup =()=>{
-    setAddPeoplePopupOpen(true)
-  }
-  const closeAddPeoplePopup =()=>{
-    setAddPeoplePopupOpen(false)
-  }
+  const [isAddPeoplePopupOpen, setAddPeoplePopupOpen] = useState(false);
+  const [taskType, setTaskType] = useState();
+
+
+useEffect(() => {
+    setTodayDate(getTodayDate);
+  });
+  useEffect(()=>{
+    console.log(duration)
+  },[duration])
+
+  const openAddPeoplePopup = () => {
+    setAddPeoplePopupOpen(true);
+  };
+  const closeAddPeoplePopup = () => {
+    setAddPeoplePopupOpen(false);
+  };
 
   const handleAddPeople = () => {};
 
   const handleCollapse = (taskType) => {
     console.log(taskType);
     axios
-      .delete('http://localhost:8000/api/auth/deleteOneTypeTasks', {
-        data: { taskType: taskType }
+      .delete("http://localhost:8000/api/auth/deleteOneTypeTasks", {
+        data: { taskType: taskType },
       })
       .then((res) => {
         console.log("Tasks deleted successfully:", res.data);
@@ -52,7 +68,9 @@ function Board({
     <div className={styles.container}>
       <div className={styles.header}>
         <h2>Welcome! kumar</h2>
-        <div className={styles.date}>12th Jan, 2024</div>
+        <div className={dateSpace ? styles.date : styles.copiedNote}>
+          {dateSpace ? todayDate : "Link Copied"}
+        </div>
         <div className={styles.headerOptions}>
           <h1>Board</h1>
           <div className={styles.addPeople} onClick={openAddPeoplePopup}>
@@ -71,7 +89,14 @@ function Board({
             <AddPeoplePopup closePopup={closeAddPeoplePopup} />
           </Popup>
 
-          <select name="" id="" className={styles.dropdown}>
+          <select
+            className={styles.dropdown}
+            value={duration}
+            onChange={(e) => {
+              setDuration(e.target.value);
+             
+            }}
+          >
             <option value="Today">Today</option>
             <option value="This week">This week</option>
             <option value="This month">This month</option>
@@ -85,7 +110,7 @@ function Board({
             <h3>Backlog</h3>
             <img src={collapse_all} onClick={() => handleCollapse("backlog")} />
           </div>
-          <Section tasks={backlogTasks} />
+          <Section tasks={backlogTasks} setDateSpace={setDateSpace} />
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
@@ -103,25 +128,38 @@ function Board({
               )}
               {/* <NewTaskPopup setToDoTasks={setToDoTasks} /> */}
             </Popup>
-            <img src={collapse_all} alt="" className={styles.collapseAllIcon} onClick={() => handleCollapse("toDo")}/>
+            <img
+              src={collapse_all}
+              alt=""
+              className={styles.collapseAllIcon}
+              onClick={() => handleCollapse("toDo")}
+            />
           </div>
           <div className={styles.toDo}>
-            <Section tasks={toDoTasks} />
+            <Section tasks={toDoTasks} setDateSpace={setDateSpace} />
           </div>
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>In progress</h3>
-            <img src={collapse_all} alt="" onClick={() => handleCollapse("inProgress")}/>
+            <img
+              src={collapse_all}
+              alt=""
+              onClick={() => handleCollapse("inProgress")}
+            />
           </div>
-          <Section tasks={inProgressTasks} />
+          <Section tasks={inProgressTasks} setDateSpace={setDateSpace} />
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>Done</h3>
-            <img src={collapse_all} alt="" onClick={() => handleCollapse("done")}/>
+            <img
+              src={collapse_all}
+              alt=""
+              onClick={() => handleCollapse("done")}
+            />
           </div>
-          <Section tasks={doneTasks} />
+          <Section tasks={doneTasks} setDateSpace={setDateSpace} />
         </div>
       </div>
     </div>
