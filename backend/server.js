@@ -30,7 +30,7 @@ app.use(cors({
 }));
 
 
-app.use(express.static(path.join(__dirname,'/frontend/dist')));
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
 app.use("/api/auth",userRouter);
 app.use("/api/auth",taskRouter);
