@@ -108,7 +108,7 @@ useEffect(() => {
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>Backlog</h3>
-            <img src={collapse_all} onClick={() => handleCollapse("backlog")} />
+            <img src={collapse_all} onClick={() => handleCollapse("backlog")} className={styles.collapseAllIcon}/>
           </div>
           <Section tasks={backlogTasks} setDateSpace={setDateSpace} duration={duration}/>
         </div>
@@ -133,6 +133,7 @@ useEffect(() => {
               alt=""
               className={styles.collapseAllIcon}
               onClick={() => handleCollapse("toDo")}
+              
             />
           </div>
           <div className={styles.toDo}>
@@ -144,6 +145,7 @@ useEffect(() => {
             <h3>In progress</h3>
             <img
               src={collapse_all}
+              className={styles.collapseAllIcon}
               alt=""
               onClick={() => handleCollapse("inProgress")}
             />
@@ -155,6 +157,7 @@ useEffect(() => {
             <h3>Done</h3>
             <img
               src={collapse_all}
+              className={styles.collapseAllIcon}
               alt=""
               onClick={() => handleCollapse("done")}
             />
