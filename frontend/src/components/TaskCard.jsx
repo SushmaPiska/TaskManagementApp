@@ -39,10 +39,7 @@ function TaskCard({
 
   const handleShare=async()=>{
     try {
-      console.log("i'm  sharing")
       const link=`http://localhost:8000/api/auth/getTaskById/${taskId}`;
-      console.log("hello")
-      console.log(link)
       await navigator.clipboard.writeText(link);
       setDateSpace(false)
       setTimeout(() => setDateSpace(true), 3000);
