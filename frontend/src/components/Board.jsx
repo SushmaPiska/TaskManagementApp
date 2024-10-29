@@ -28,14 +28,14 @@ function Board({
 
   const [isAddPeoplePopupOpen, setAddPeoplePopupOpen] = useState(false);
   const [taskType, setTaskType] = useState();
-
+ 
 
 useEffect(() => {
     setTodayDate(getTodayDate);
   });
-  useEffect(()=>{
-    console.log(duration)
-  },[duration])
+  // useEffect(()=>{
+  //   console.log(duration)
+  // },[duration])
 
   const openAddPeoplePopup = () => {
     setAddPeoplePopupOpen(true);
@@ -110,7 +110,7 @@ useEffect(() => {
             <h3>Backlog</h3>
             <img src={collapse_all} onClick={() => handleCollapse("backlog")} />
           </div>
-          <Section tasks={backlogTasks} setDateSpace={setDateSpace} />
+          <Section tasks={backlogTasks} setDateSpace={setDateSpace} duration={duration}/>
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
@@ -136,7 +136,7 @@ useEffect(() => {
             />
           </div>
           <div className={styles.toDo}>
-            <Section tasks={toDoTasks} setDateSpace={setDateSpace} />
+            <Section tasks={toDoTasks} setDateSpace={setDateSpace} duration={duration}/>
           </div>
         </div>
         <div className={styles.section}>
@@ -148,7 +148,7 @@ useEffect(() => {
               onClick={() => handleCollapse("inProgress")}
             />
           </div>
-          <Section tasks={inProgressTasks} setDateSpace={setDateSpace} />
+          <Section tasks={inProgressTasks} setDateSpace={setDateSpace} duration={duration}/>
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
@@ -159,7 +159,7 @@ useEffect(() => {
               onClick={() => handleCollapse("done")}
             />
           </div>
-          <Section tasks={doneTasks} setDateSpace={setDateSpace} />
+          <Section tasks={doneTasks} setDateSpace={setDateSpace} duration={duration}/>
         </div>
       </div>
     </div>
