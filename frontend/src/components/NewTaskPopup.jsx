@@ -73,11 +73,11 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
         </label>
         <div
           className={`${styles.highPriority} ${styles.priorityItem}`}
-          value="high"
+          // value="high"
           onClick={(e) => {
             setPriority("high");
-            console.log(priority);
           }}
+          style={{ backgroundColor: priority === "high" ? "#ebefef" : "transparent" }}
         >
           <div className={`${styles.highColor} ${styles.ball}`}></div>
           <div className={styles.priorityName}>HIGH PRIORITY</div>
@@ -86,6 +86,9 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
           className={`${styles.moderatePriority} ${styles.priorityItem}`}
           value="high"
           onClick={(e) => setPriority("moderate")}
+          style={{ backgroundColor: priority === "moderate" ? "#ebefef" : "transparent" }}
+
+          
         >
           <div className={`${styles.moderateColor}  ${styles.ball}`}></div>
           <div className={styles.priorityName}>MODERATE PRIORITY</div>
@@ -94,6 +97,8 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
           className={`${styles.lowPriority} ${styles.priorityItem}`}
           value="high"
           onClick={(e) => setPriority("low")}
+          style={{ backgroundColor: priority === "low" ? "#ebefef" : "transparent" }}
+
         >
           <div className={`${styles.lowColor} ${styles.ball}`}></div>
           <div className={styles.priorityName}>LOW PRIORITY</div>

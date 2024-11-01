@@ -15,8 +15,8 @@
     height: 3rem;
     margin: 0.7rem 0;
    border: 1.7px solid #D0D0D0;
-   outline: none;
    border-radius: 10px;
+   outline: none;
    padding: 0 4rem;
    font-size: 1rem;
   
@@ -34,10 +34,29 @@
     background-position: 0.4rem 0.5rem;
   }
 .password {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 1.5rem;
     padding-left: 2.5rem;
     background: url("C:\Users\susma\OneDrive\Desktop\TaskManagementApp\frontend\src\assets\lock.png") no-repeat left;
     background-size: 1.7rem;
-    background-position: 0.4rem 0.4rem;
+    background-position: 0.4rem -0.2rem;
+  }
+  .passwordContainer{
+    display: flex;
+    justify-content: space-around;
+    border: 1.7px solid #D0D0D0;
+   border-radius: 10px;
+   padding-right: 1rem;
+   margin: 0.7rem 0;
+   
+  }
+  .eyeIcon{
+    margin: auto;
+    color:  #828282;
+    font-size: 1.2rem;
+    
   }
 .registerBtn{
     border: none;

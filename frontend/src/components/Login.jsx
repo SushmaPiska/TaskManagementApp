@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [error, setError] = useState({
     email: false,
@@ -88,13 +90,21 @@ function Login() {
         {error.email && (
           <p className={styles.errorText}>{errorMessages.email.message}</p>
         )}
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          className={styles.inputItem + " " + styles.password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+      <div className={styles.passwordContainer}>
+      <input
+        type={showPassword ? 'text' : 'password'}
+        placeholder="Password"
+        value={password}
+        className={`${styles.inputItem} ${styles.password}`}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <span
+        onClick={() => setShowPassword(!showPassword)}
+        className={styles.eyeIcon}
+      >
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+      </span>
+    </div>
         {error.password && (
           <p className={styles.errorText}>{errorMessages.password.message}</p>
         )}

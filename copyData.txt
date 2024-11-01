@@ -4,6 +4,11 @@
   "checkList":{"check1":true,"check2":false},
   "dueDate":"2024-10-22"
 
+  
+"name":"name",
+  "email":"email@gmail.com",
+  "password":"password",
+  "confirmPassword":"password"
   {
 
  "email":"scxx@x.com",

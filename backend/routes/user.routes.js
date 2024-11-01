@@ -3,7 +3,9 @@ import express from "express"
 import { 
     // getUserbyEmail,
      login, logout, signup, 
-     updateUserName} from "../controllers/user.controller.js"
+     updateUserEmail, 
+     updateUserName,
+     updateUserPassword} from "../controllers/user.controller.js"
 
 import signupValidation from  "../middlewares/signupValidation.js"
 
@@ -15,5 +17,7 @@ router.post("/logout",logout)
 // router.get("/:email",getUserbyEmail)
 
 router.put('/updateUserName/:id',updateUserName)
+router.put('/updateUserEmail/:id',updateUserEmail)
+router.put('/updateUserPassword/:id',updateUserPassword)
 
 export default router

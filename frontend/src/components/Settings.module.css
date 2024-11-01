@@ -37,6 +37,9 @@
     background-size: 1.7rem;
     background-position: 0.4rem 0.4rem;
   }
+  .errorMessage{
+    color: #CF3636;
+  }
   .updateBtn{
     border: none;
     outline: none;

@@ -23,9 +23,7 @@ function HomePage() {
               <p className={styles.tagLine}>
                 Just a couple of clicks and we start
               </p>
-              {/* Add buttons to navigate */}
-              <button onClick={() => navigate("/login")}>Login</button>
-              <button onClick={() => navigate("/")}>Register</button>
+            
             </div>
           </div>
         </div>

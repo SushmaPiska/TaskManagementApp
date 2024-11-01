@@ -53,62 +53,8 @@ export const getAllTasksByType = async (req, res) => {
     res.status(400).json({ message: `Unable to get all  ${taskType} tasks` });
   }
 };
-export const getAllBacklogTasks = async (req, res) => {
-  try {
-    const isAuthenticated = isAuth(req);
-    // const tasks= await Task.find({ taskType: "backlog" })
 
-    const tasks = isAuthenticated
-      ? await Task.find({ taskType: "backlog" })
-      : await Task.find({ taskType: "backlog" }).select("-_id -__v ");
-    res.status(200).json(tasks);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: "Unable to get all  backlog tasks" });
-  }
-};
-export const getAllToDoTasks = async (req, res) => {
-  try {
-    const isAuthenticated = isAuth(req);
 
-    const tasks = await Task.find({ taskType: "toDo" });
-    // const tasks = isAuthenticated
-    //   ? await Task.find({ taskType: "toDo" })
-    //   : await Task.find({ taskType: "toDo" }).select("-_id -__v ");
-    res.status(200).json(tasks);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: "Unable to get all  todo tasks" });
-  }
-};
-export const getAllInProgressTasks = async (req, res) => {
-  try {
-    const isAuthenticated = isAuth(req);
-    const tasks = await Task.find({ taskType: "inProgress" });
-
-    // const tasks = isAuthenticated
-    //   ? await Task.find({ taskType: "inProgress" })
-    //   : await Task.find({ taskType: "inProgress" }).select("-_id -__v ");
-    res.status(200).json(tasks);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: "Unable to get all in progress tasks" });
-  }
-};
-export const getAllDoneTasks = async (req, res) => {
-  try {
-    const isAuthenticated = isAuth(req);
-
-    const tasks = await Task.find({ taskType: "done" });
-    // const tasks = isAuthenticated
-    //   ? await Task.find({ taskType: "done" })
-    //   : await Task.find({ taskType: "done" }).select("-_id -__v ");
-    res.status(200).json(tasks);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: "Unable to get all  done tasks" });
-  }
-};
 
 export const deleteTask = async (req, res) => {
   try {

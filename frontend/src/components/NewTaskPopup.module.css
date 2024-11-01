@@ -32,6 +32,7 @@
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
     justify-content: space-between;
+    background-color: #ebefef;
 
 }
 .ball{
@@ -59,6 +60,7 @@
 }
 .assigneeInput{
     border: 1px solid #E2E2E2;
+    outline: none;
     width: 88%;
     padding: 0.5rem;
     border-radius: 4px;

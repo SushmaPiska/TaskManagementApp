@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Register.module.css";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Register() {
 
@@ -13,6 +14,9 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
 
   const [error, setError] = useState({
     name: { message: "", isVisible: false },
@@ -121,22 +125,44 @@ export default function Register() {
         />
         {error.email.isVisible && <p className={styles.errorText}>{error.email.message}</p>}
 
+        <div>
+      <div className={styles.passwordContainer}>
         <input
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           placeholder="Password"
           value={password}
-          className={styles.inputItem + " " + styles.password}
+          className={`${styles.inputItem} ${styles.password}`}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {error.password.isVisible && <p className={styles.errorText}>{error.password.message}</p>}
+        <span
+          onClick={() => setShowPassword(!showPassword)}
+          className={styles.eyeIcon}
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+      {error.password.isVisible && <p className={styles.errorText}>{error.password.message}</p>}
 
+      <div className={styles.passwordContainer}>
         <input
-          type="password"
+          type={showConfirmPassword ? 'text' : 'password'}
           placeholder="Confirm Password"
           value={confirmPassword}
-          className={styles.inputItem + " " + styles.password}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          className={`${styles.inputItem} ${styles.password}`}
         />
+        <span
+          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          className={styles.eyeIcon}
+        >
+          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+      {error.confirmPassword.isVisible && (
+        <p className={styles.errorText}>{error.confirmPassword.message}</p>
+      )}
+    </div>
+
         {error.confirmPassword.isVisible && (
           <p className={styles.errorText}>{error.confirmPassword.message}</p>
         )}
