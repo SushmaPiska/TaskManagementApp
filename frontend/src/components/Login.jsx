@@ -52,7 +52,8 @@ function Login() {
             // if (response.data.status) {
             const token = res.data.token;
             localStorage.setItem("token", token);
-            navigate("/dashboard");
+            // navigate("/dashboard");
+            window.location.href = '/dashboard'
             console.log("loggedin successfully");
 
             // }

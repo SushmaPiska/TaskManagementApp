@@ -17,7 +17,7 @@ function Settings() {
 
 
   const handleUpdateName = async () => {
-    e.preventDefault();
+    // e.preventDefault();
     const user = {};
     try {
       axios
@@ -39,7 +39,7 @@ function Settings() {
     }
   };
   const handleUpdateEmail = async () => {
-    e.preventDefault();
+    // e.preventDefault();
     const user = {};
     try {
       axios
@@ -61,7 +61,7 @@ function Settings() {
     }
   };
   const handleUpdatePassword = async () => {
-    e.preventDefault();
+    // e.preventDefault();
     const user = {};
     try {
       axios
