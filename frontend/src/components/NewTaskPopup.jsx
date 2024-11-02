@@ -17,7 +17,6 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
     e.preventDefault();
 
     try {
-      // await axios.post(`${baseUrl}/api/auth/createTask`, {
       axios
         .post("http://localhost:8000/api/auth/createTask", {
           title: title,

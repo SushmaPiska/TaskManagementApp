@@ -100,6 +100,7 @@ useEffect(() => {
             <option value="Today">Today</option>
             <option value="This week">This week</option>
             <option value="This month">This month</option>
+            <option value="All">All</option>
           </select>
         </div>
       </div>

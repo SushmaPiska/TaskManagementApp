@@ -30,6 +30,9 @@ export const isDateInPeriod = (dueDate, period) => {
         date.getFullYear() === now.getFullYear()
       );
     }
+    if(period==="All"){
+      return true
+    }
   
     return false;
   };

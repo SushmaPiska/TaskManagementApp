@@ -18,10 +18,8 @@ function TaskCard({
   checkList,
   dueDate,
   taskType,
-  setDateSpace
+  setDateSpace,
 }) {
-
-
   const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
@@ -36,17 +34,16 @@ function TaskCard({
 
   const closeDeletePopup = () => setDeletePopupOpen(false);
 
-
-  const handleShare=async()=>{
+  const handleShare = async () => {
     try {
-      const link=`http://localhost:8000/api/auth/getTaskById/${taskId}`;
+      const link = `http://localhost:8000/api/auth/getTaskById/${taskId}`;
       await navigator.clipboard.writeText(link);
-      setDateSpace(false)
+      setDateSpace(false);
       setTimeout(() => setDateSpace(true), 3000);
     } catch (error) {
-      console.log("error in sharing" +error)
+      console.log("error in sharing" + error);
     }
-  }
+  };
   let switchArray;
   if (taskType === "backlog") {
     switchArray = ["TODO", "PROGRESS", "DONE"];
@@ -59,7 +56,7 @@ function TaskCard({
   }
 
   const handleSwitch = (item) => {
-    console.log(taskId)
+    console.log(taskId);
     let newType;
     if (item === "BACKLOG") {
       newType = "backlog";
@@ -104,7 +101,13 @@ function TaskCard({
     priorityClass = styles.low;
     dueDateClass = styles.dueDate;
   }
-
+  /////////////////////////////
+  const now = new Date();
+  let inCompleteClass;
+  if(dueDate < now.getDate()){
+    inCompleteClass=styles.redDate
+  }
+//////////////////////////////////
   return (
     <div className={styles.container}>
       <div className={styles.cardNav}>
@@ -127,10 +130,13 @@ function TaskCard({
             <li className={styles.menuItem} onClick={menuToggle}>
               Edit
             </li>
-            <li className={styles.menuItem} onClick={()=>{
-              menuToggle()
-              handleShare()
-            }}>
+            <li
+              className={styles.menuItem}
+              onClick={() => {
+                menuToggle();
+                handleShare();
+              }}
+            >
               Share
             </li>
             <li
@@ -183,7 +189,18 @@ function TaskCard({
       </div>
 
       <div className={styles.footer}>
-        <div className={dueDateClass}>{formatDate(dueDate)}</div>
+        {dueDate && (
+          <div
+            className={
+              taskType === "done"
+                ? `${dueDateClass} ${styles.doneDueDate} ${inCompleteClass}`
+                : `${dueDateClass} ${inCompleteClass}`
+            }
+          >
+            {formatDate(dueDate)}
+          </div>
+        )}
+
         {switchArray.map((item, index) => (
           <div
             key={index}

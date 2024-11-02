@@ -121,3 +121,7 @@ li{
     padding: 0.4rem 0.6rem;
     margin-right: auto;
 }
+.doneDueDate{
+    background-color: #63C05B;
+    color: white;
+}
