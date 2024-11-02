@@ -60,6 +60,7 @@ function Dashboard() {
           // if (response.data.status) {
           // navigate("/");
           localStorage.removeItem("token");
+          localStorage.removeItem("user");
           window.location.href = "/login";
           console.log("logged out successfully");
           // }

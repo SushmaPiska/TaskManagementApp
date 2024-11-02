@@ -18,7 +18,9 @@ function Board({
   doneTasks,
   setToDoTasks,
 }) {
-  
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  console.log(storedUser.name)
+  const userName = storedUser ? storedUser.name : null;
 
   const [todayDate, setTodayDate] = useState();
   const [dateSpace, setDateSpace] = useState(true);
@@ -67,7 +69,7 @@ useEffect(() => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2>Welcome! kumar</h2>
+        <h2>Welcome! {userName}</h2>
         <div className={dateSpace ? styles.date : styles.copiedNote}>
           {dateSpace ? todayDate : "Link Copied"}
         </div>
