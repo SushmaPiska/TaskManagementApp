@@ -49,7 +49,7 @@ useEffect(() => {
   const handleCollapse = (taskType) => {
     console.log(taskType);
     axios
-      .delete("http://localhost:8000/api/auth/deleteOneTypeTasks", {
+      .delete(`${import.meta.env.VITE_BASE_URL}/api/auth/deleteOneTypeTasks`, {
         data: { taskType: taskType },
       })
       .then((res) => {

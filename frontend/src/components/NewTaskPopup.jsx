@@ -4,7 +4,7 @@ import deleteIcon from "../assets/delete.png";
 import axios from "axios";
 
 function NewTaskPopup({ setToDoTasks, closePopup }) {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  // const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("");
@@ -18,7 +18,7 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
 
     try {
       axios
-        .post("http://localhost:8000/api/auth/createTask", {
+        .post(`${import.meta.env.VITE_BASE_URL}/api/auth/createTask`, {
           title: title,
           priority: priority,
           assignee: assignee,

@@ -65,7 +65,7 @@ function Settings() {
     const user = {};
     try {
       axios
-        .put(`http://localhost:8000/api/auth/updateUserPassword/${user._id}`, {oldPassword:oldPassword, newPassword:newPassword})
+        .put(`${import.meta.env.VITE_BASE_URL}/api/auth/updateUserPassword/${user._id}`, {oldPassword:oldPassword, newPassword:newPassword})
         .then((res) => {
           console.log(res);
           closePopup();

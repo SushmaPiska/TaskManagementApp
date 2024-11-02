@@ -69,7 +69,7 @@ function TaskCard({
     }
     try {
       axios
-        .put(`http://localhost:8000/api/auth/updateTaskType/${taskId}`, {
+        .put(`${import.meta.env.VITE_BASE_URL}/api/auth/updateTaskType/${taskId}`, {
           taskType: newType,
         })
         .then((res) => {

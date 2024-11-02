@@ -50,7 +50,7 @@ export const getAllTasksByType = async (req, res) => {
     res.status(200).json(tasks);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: `Unable to get all  ${taskType} tasks` });
+    res.status(400).json({ message: `Unable to get all tasks` });
   }
 };
 

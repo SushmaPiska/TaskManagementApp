@@ -44,7 +44,7 @@ function Login() {
     if (!isError) {
       try {
         axios.post(
-          "http://localhost:8000/api/auth/login",
+          `${import.meta.env.VITE_BASE_URL}/api/auth/login`,
           { email: email, password: password },
           { withCredentials: true }
         )

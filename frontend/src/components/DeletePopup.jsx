@@ -9,7 +9,7 @@ function DeletePopup({ closePopup,taskId }) {
     try {
       axios
         .delete(
-          `http://localhost:8000/api/auth/delete/${taskId}`,
+          `${import.meta.env.VITE_BASE_URL}/api/auth/delete/${taskId}`,
           
         )
         .then((res) => {
