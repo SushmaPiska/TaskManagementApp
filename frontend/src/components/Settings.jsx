@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Settings.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import axios from "axios";
 
 function Settings() {
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -18,13 +19,16 @@ function Settings() {
 
   const handleUpdateName = async () => {
     // e.preventDefault();
-    const user = {};
+    const user = JSON.parse(localStorage.getItem("user"));
     try {
       axios
-        .put(`http://localhost:8000/api/auth/updateUserName/${user._id}`, {name:name})
+        .put(`${import.meta.env.VITE_BASE_URL}/api/auth/updateUserName/${user._id}`, {name:name})
         .then((res) => {
           console.log(res);
-          closePopup();
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          window.location.href = "/login";
+          
         })
         .catch((e) => {
           console.log("Error message: " + e.message);
@@ -40,13 +44,15 @@ function Settings() {
   };
   const handleUpdateEmail = async () => {
     // e.preventDefault();
-    const user = {};
+    const user = JSON.parse(localStorage.getItem("user"));
     try {
       axios
-        .put(`http://localhost:8000/api/auth/updateUserEmail/${user._id}`, {email:email})
+        .put(`${import.meta.env.VITE_BASE_URL}/api/auth/updateUserEmail/${user._id}`, {email:email})
         .then((res) => {
           console.log(res);
-          closePopup();
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          window.location.href = "/login";
         })
         .catch((e) => {
           console.log("Error message: " + e.message);
@@ -62,13 +68,15 @@ function Settings() {
   };
   const handleUpdatePassword = async () => {
     // e.preventDefault();
-    const user = {};
+    const user = JSON.parse(localStorage.getItem("user"));
     try {
       axios
         .put(`${import.meta.env.VITE_BASE_URL}/api/auth/updateUserPassword/${user._id}`, {oldPassword:oldPassword, newPassword:newPassword})
         .then((res) => {
           console.log(res);
-          closePopup();
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          window.location.href = "/login";
         })
         .catch((e) => {
           console.log("Error message: " + e.message);
@@ -104,7 +112,7 @@ function Settings() {
         handleUpdateName()
       }else if(email!==""){
         handleUpdateEmail()
-      }else if(password!==""){
+      }else if(oldPassword!=="" && newPassword!==""){
         handleUpdatePassword()
       }
     }
