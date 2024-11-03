@@ -160,7 +160,7 @@ function TaskCard({
         <DeletePopup closePopup={closeDeletePopup} taskId={taskId} />
       </Popup>
 
-      <div className={styles.title}>{title}</div>
+      <div className={styles.title} title={title}>{title}</div>
       <div className={styles.checkList}>
         <div className={styles.checkListHead}>
           <p>Checklist (0/3)</p>
