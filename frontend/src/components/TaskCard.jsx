@@ -36,7 +36,13 @@ function TaskCard({
 
   const handleShare = async () => {
     try {
-      const link = `http://localhost:8000/api/auth/getTaskById/${taskId}`;
+      const BASE_URL =
+      import.meta.env.MODE === "development"
+        ? "http://localhost:5173"
+        : "https://taskmanagementapp-0mlj.onrender.com"
+    
+    
+      const link = `${BASE_URL}/taskDetails/${taskId}`;
       await navigator.clipboard.writeText(link);
       setDateSpace(false);
       setTimeout(() => setDateSpace(true), 3000);

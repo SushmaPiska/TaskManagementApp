@@ -9,6 +9,8 @@ import Analytics from "./components/Analytics";
 import Settings from "./components/Settings";
 
 import { getAllTasksByType } from "../services/getAllTasks";
+import TaskDetails from "./pages/TaskDetails";
+import SharedTask from "./components/SharedTask.jsx";
 
 function App() {
   const [backlogTasks, setBacklogTasks] = useState();
@@ -29,7 +31,7 @@ function App() {
           console.log("Error details:", e);
         }
       });
-      getAllTasksByType("toDo")
+    getAllTasksByType("toDo")
       .then((res) => {
         setToDoTasks(res.data);
       })
@@ -41,7 +43,7 @@ function App() {
           console.log("Error details:", e);
         }
       });
-      getAllTasksByType("inProgress")
+    getAllTasksByType("inProgress")
       .then((res) => {
         setInProgressTasks(res.data);
       })
@@ -53,7 +55,7 @@ function App() {
           console.log("Error details:", e);
         }
       });
-      getAllTasksByType("done")
+    getAllTasksByType("done")
       .then((res) => {
         setDoneTasks(res.data);
       })
@@ -100,6 +102,9 @@ function App() {
             }
           ></Route>
           <Route path="settings" element={<Settings />}></Route>
+        </Route>
+        <Route path="/taskDetails" element={<TaskDetails />}>
+          <Route path=":id" element={<SharedTask />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

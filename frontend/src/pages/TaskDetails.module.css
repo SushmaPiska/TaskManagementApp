@@ -1,0 +1,22 @@
+.container{
+    width: 100%;
+    height: 100%;
+    padding: 2.5rem;
+}
+.header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.heading{
+    font-weight: 700;
+    margin-left: 1rem;
+}
+
+.taskDetails{
+    border: 2px solid #EDF5FE;
+    width: 40rem;
+    max-height: 32rem;
+    margin: auto;
+}
