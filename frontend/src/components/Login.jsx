@@ -15,6 +15,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [backendError, setBackendError] = useState("")
 
   const [error, setError] = useState({
     email: false,
@@ -40,53 +41,57 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     let isError = false;
-    e.preventDefault();
+  
+    // Validate fields
     Object.keys(errorMessages).forEach((key) => {
       if (!errorMessages[key].isValid) {
         isError = true;
         errorMessages[key].onError();
       }
     });
+  
     if (!isError) {
       try {
-        axios
-          .post(
-            `${import.meta.env.VITE_BASE_URL}/api/auth/login`,
-            { email: email, password: password },
-            { withCredentials: true }
-          )
-          .then((res) => {
-            console.log("hello");
-            console.log(res.data);
-            // console.log("world");
-            // // if (response.data.status) {
-            const token = res.data.token;
-            localStorage.setItem("token", token);
-
-            const user = res.data;
-            localStorage.setItem("user", JSON.stringify(user));
-            // navigate("/dashboard");
-            window.location.href = "/dashboard";
-            console.log("loggedin successfully");
-
-            // }
-          })
-          .catch((e) => {
-            console.log("Error message: " + e.message);
-            if (e.response) {
-              console.log("Server response:", e.response.data);
-            } else {
-              console.log("Error details:", e);
-            }
-          });
-      } catch (error) {
-        console.error(
-          "Error logging in:",
-          error.response?.data || error.message
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/api/auth/login`,
+          { email: email, password: password },
+          { withCredentials: true }
         );
+  
+        console.log("Logged in successfully", response.data);
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        window.location.href = "/dashboard";
+      } catch (error) {
+        console.log("Error object:", error);
+  
+        if (error.response) {
+          console.log("Response exists:", error.response);
+          console.log("Response data:", error.response.data);
+  
+          if (error.response.data && error.response.data.error) {
+            const message = error.response.data.error; 
+            setBackendError(message);
+            console.log("Setting backendError:", message); 
+          } else {
+            console.log("Unexpected error structure:", error.response.data);
+            setBackendError("An unexpected error occurred."); 
+          }
+        } else {
+          console.log("Error details:", error);
+          setBackendError("Network error. Please try again."); 
+        }
       }
     }
   };
+  
+  useEffect(() => {
+    console.log("Backend Error:", backendError);
+  }, [backendError]); 
+  
+  
+  
   const handleSignup = () => {
     navigate("/");
   };
@@ -102,7 +107,7 @@ function Login() {
           onChange={(e) => setEmail(e.target.value)}
         />
         {error.email && (
-          <p className={styles.errorText}>{errorMessages.email.message}</p>
+          <p className={styles.errorMessage}>* {errorMessages.email.message}</p>
         )}
         <div className={styles.passwordContainer}>
           <input
@@ -120,9 +125,12 @@ function Login() {
           </span>
         </div>
         {error.password && (
-          <p className={styles.errorText}>{errorMessages.password.message}</p>
+          <p className={styles.errorMessage}>*  {errorMessages.password.message}</p>
         )}
       </div>
+      {console.log(backendError)}
+      {backendError && <div className={styles.errorMessage}>* {backendError}</div>}
+      
       <button className={styles.loginBtn} onClick={handleLogin}>
         Login
       </button>

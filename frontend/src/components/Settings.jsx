@@ -14,6 +14,7 @@ function Settings() {
   const [noFieldError, setNoFieldError] = useState(false);
   const [multiFieldError, setMultiFieldError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [backendError, setBackendError] = useState("");
 
 
 
@@ -33,7 +34,8 @@ function Settings() {
         .catch((e) => {
           console.log("Error message: " + e.message);
           if (e.response) {
-            console.log("Server response:", e.response.data);
+            setBackendError(e.response.data)
+            console.log("Server response:", e.response.data.message);
           } else {
             console.log("Error details:", e);
           }
@@ -57,7 +59,8 @@ function Settings() {
         .catch((e) => {
           console.log("Error message: " + e.message);
           if (e.response) {
-            console.log("Server response:", e.response.data);
+            setBackendError(e.response.data)
+            console.log("Server response:", e.response.data.message);
           } else {
             console.log("Error details:", e);
           }
@@ -81,6 +84,7 @@ function Settings() {
         .catch((e) => {
           console.log("Error message: " + e.message);
           if (e.response) {
+            setBackendError(e.response.data.message)
             console.log("Server response:", e.response.data);
           } else {
             console.log("Error details:", e);
@@ -179,6 +183,8 @@ function Settings() {
         </div>}
         {passwordError && <div className={styles.errorMessage}>* Both old and new passwords are required
         </div>}
+        {backendError && <div className={styles.errorMessage}>* {backendError}</div>}
+
         <button className={styles.updateBtn} onClick={handleUpdate}>
           Update
         </button>

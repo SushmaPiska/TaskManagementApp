@@ -83,3 +83,7 @@
     cursor: pointer;
 
 }
+.errorMessage{
+  color: #CF3636;
+  font-size: 0.9rem;
+}

@@ -2,21 +2,19 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Register.module.css";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Register() {
-
-  const baseUrl=import.meta.env.VITE_BASE_URL
-
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+  const [backendError, setBackendError] = useState("");
 
   const [error, setError] = useState({
     name: { message: "", isVisible: false },
@@ -24,7 +22,6 @@ export default function Register() {
     password: { message: "", isVisible: false },
     confirmPassword: { message: "", isVisible: false },
   });
-
 
   const navigate = useNavigate();
 
@@ -50,8 +47,7 @@ export default function Register() {
   const handleSignup = async (e) => {
     e.preventDefault();
     let isError = false;
-
-    // Reset backend errors
+    setBackendError("")
     setError({
       name: { message: "", isVisible: false },
       email: { message: "", isVisible: false },
@@ -59,13 +55,15 @@ export default function Register() {
       confirmPassword: { message: "", isVisible: false },
     });
 
-    // Frontend validation
     Object.keys(frontendErrorMessages).forEach((key) => {
       if (!frontendErrorMessages[key].isValid) {
         isError = true;
         setError((prevError) => ({
           ...prevError,
-          [key]: { message: frontendErrorMessages[key].message, isVisible: true },
+          [key]: {
+            message: frontendErrorMessages[key].message,
+            isVisible: true,
+          },
         }));
       }
     });
@@ -82,17 +80,16 @@ export default function Register() {
         navigate("/login");
       } catch (err) {
         setLoading(false);
-        if (err.response && err.response.data.errors) {
-          const backendErrors = err.response.data.errors;
-          backendErrors.forEach(({ msg, param }) => {
-            setError((prevError) => ({
-              ...prevError,
-              [param]: { message: msg, isVisible: true },
-            }));
-          });
+        if (err.response) {
+          console.log(err.response.data.error)
+        
+            setBackendError(err.response.data.error);
+         
         } else {
-          console.error("Unexpected error:", err);
+          console.log("Error details:", error);
+          setBackendError("Network error. Please try again.");
         }
+    
       } finally {
         setLoading(false);
       }
@@ -114,8 +111,10 @@ export default function Register() {
           className={styles.inputItem + " " + styles.name}
           onChange={(e) => setName(e.target.value)}
         />
-        {error.name.isVisible && <p className={styles.errorText}>{error.name.message}</p>}
-        
+        {error.name.isVisible && (
+          <p className={styles.errorMessage}>* {error.name.message}</p>
+        )}
+
         <input
           type="email"
           placeholder="Email"
@@ -123,56 +122,66 @@ export default function Register() {
           className={styles.inputItem + " " + styles.email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        {error.email.isVisible && <p className={styles.errorText}>{error.email.message}</p>}
+        {error.email.isVisible && (
+          <p className={styles.errorMessage}>* {error.email.message}</p>
+        )}
 
         <div>
-      <div className={styles.passwordContainer}>
-        <input
-          type={showPassword ? 'text' : 'password'}
-          placeholder="Password"
-          value={password}
-          className={`${styles.inputItem} ${styles.password}`}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <span
-          onClick={() => setShowPassword(!showPassword)}
-          className={styles.eyeIcon}
-        >
-          {showPassword ? <FaEyeSlash /> : <FaEye />}
-        </span>
-      </div>
-      {error.password.isVisible && <p className={styles.errorText}>{error.password.message}</p>}
+          <div className={styles.passwordContainer}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              className={`${styles.inputItem} ${styles.password}`}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className={styles.eyeIcon}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          {error.password.isVisible && (
+            <p className={styles.errorMessage}>* {error.password.message}</p>
+          )}
 
-      <div className={styles.passwordContainer}>
-        <input
-          type={showConfirmPassword ? 'text' : 'password'}
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className={`${styles.inputItem} ${styles.password}`}
-        />
-        <span
-          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-          className={styles.eyeIcon}
-        >
-          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-        </span>
+          <div className={styles.passwordContainer}>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className={`${styles.inputItem} ${styles.password}`}
+            />
+            <span
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className={styles.eyeIcon}
+            >
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          {error.confirmPassword.isVisible && (
+            <p className={styles.errorMessage}>
+              * {error.confirmPassword.message}
+            </p>
+          )}
+        </div>
       </div>
-      {error.confirmPassword.isVisible && (
-        <p className={styles.errorText}>{error.confirmPassword.message}</p>
-      )}
-    </div>
-
-        {error.confirmPassword.isVisible && (
-          <p className={styles.errorText}>{error.confirmPassword.message}</p>
-        )}
-      </div>
-
-      <button className={styles.registerBtn} onClick={handleSignup} disabled={loading}>
+      {backendError && <div className={styles.errorMessage}>* {backendError}</div>}
+      <button
+        className={styles.registerBtn}
+        onClick={handleSignup}
+        disabled={loading}
+      >
         {loading ? "Registering..." : "Register"}
       </button>
       <p className={styles.text}>Have an account ?</p>
-      <button className={styles.loginBtn} onClick={handleLogin} disabled={loading}>
+      <button
+        className={styles.loginBtn}
+        onClick={handleLogin}
+        disabled={loading}
+      >
         Log in
       </button>
     </div>
