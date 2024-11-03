@@ -23,14 +23,14 @@
 }
 .name{
     padding-left: 2.5rem;
-    background: url("C:\Users\susma\OneDrive\Desktop\TaskManagementApp\frontend\src\assets\name.png") no-repeat left;
+    background: url("/assets/name.png") no-repeat left;
     background-size: 1.7rem;
     background-position: 0.4rem 0.5rem;
 }
 .email {
     padding-left: 2.5rem;
-    background: url("C:\Users\susma\OneDrive\Desktop\TaskManagementApp\frontend\src\assets\email.png") no-repeat left;
-    background-size: 1.7rem;
+    background: url("/assets/email.png") no-repeat left;
+    background-size: 1.6rem;
     background-position: 0.4rem 0.5rem;
   }
 .password {
