@@ -18,9 +18,12 @@ function Board({
   doneTasks,
   setToDoTasks,
 }) {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  console.log(storedUser.name)
-  const userName = storedUser ? storedUser?.name : null;
+  // const storedUser = JSON.parse(localStorage.getItem("user"));
+  // console.log(storedUser.name)
+  // const userName = storedUser ? storedUser?.name : null;
+  const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
+const userName = storedUser && storedUser.name ? storedUser.name : "Guest";  // Default to "Guest" if user or name is missing
+
 
   const [todayDate, setTodayDate] = useState();
   const [dateSpace, setDateSpace] = useState(true);
