@@ -41,7 +41,8 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     let isError = false;
-  
+  setError(false)
+  setBackendError("")
     // Validate fields
     Object.keys(errorMessages).forEach((key) => {
       if (!errorMessages[key].isValid) {
