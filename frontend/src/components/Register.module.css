@@ -39,9 +39,9 @@
     width: 100%;
     height: 1.5rem;
     padding-left: 2.5rem;
-    background: url("C:\Users\susma\OneDrive\Desktop\TaskManagementApp\frontend\src\assets\lock.png") no-repeat left;
-    background-size: 1.7rem;
-    background-position: 0.4rem -0.2rem;
+    background: url("/assets/lock.png") no-repeat left;
+    background-position: 0.2rem -0.2rem;
+    background-size: 1.8rem;
   }
   .passwordContainer{
     display: flex;
