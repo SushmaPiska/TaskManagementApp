@@ -20,7 +20,7 @@ function Board({
 }) {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   console.log(storedUser.name)
-  const userName = storedUser ? storedUser.name : null;
+  const userName = storedUser ? storedUser?.name : null;
 
   const [todayDate, setTodayDate] = useState();
   const [dateSpace, setDateSpace] = useState(true);
