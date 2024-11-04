@@ -23,7 +23,7 @@ import LogoutPopup from "../components/LogoutPopup.jsx";
 
 function Dashboard() {
   const navigate = useNavigate();
-
+  const [active, setActive] = useState("dashboard");
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -33,12 +33,15 @@ function Dashboard() {
 
   const handleBoard = () => {
     navigate("/dashboard");
+    setActive("dashboard");
   };
   const handleAnalytics = () => {
     navigate("analytics");
+    setActive("analytics");
   };
   const handleSettings = () => {
     navigate("settings");
+    setActive("settings");
   };
 
   const [isLogoutPopupOpen, setLogoutPopupOpen] = useState(false);
@@ -53,7 +56,7 @@ function Dashboard() {
   const handleLogout = async () => {
     try {
       axios
-        .post("http://localhost:8000/api/auth/logout", {
+        .post(`${VITE_BASE_URL}/api/auth/logout`, {
           withCredentials: true,
         })
         .then((response) => {
@@ -83,15 +86,34 @@ function Dashboard() {
           <img src={codesandbox} alt="" className={styles.icon} />
           <h3 className={styles.heading}>Pro Manage</h3>
         </div>
-        <div className={styles.menuItem} onClick={handleBoard}>
+        <div
+          className={styles.menuItem}
+          onClick={handleBoard}
+          style={{
+            background: active === "dashboard" && " #4391ED1A",
+            
+          }}
+        >
           <img src={layoutIcon} alt="" className={styles.icon} />
           <p className={styles.board}>Board</p>
         </div>
-        <div className={styles.menuItem} onClick={handleAnalytics}>
+        <div
+          className={styles.menuItem}
+          onClick={handleAnalytics}
+          style={{
+            background: active === "analytics" && " #4391ED1A",
+          }}
+        >
           <img src={databaseIcon} alt="" className={styles.icon} />
           <p className={styles.analytics}>Analytics</p>
         </div>
-        <div className={styles.menuItem} onClick={handleSettings}>
+        <div
+          className={styles.menuItem}
+          onClick={handleSettings}
+          style={{
+            background: active === "settings" && " #4391ED1A",
+          }}
+        >
           <img src={settingsIcon} alt="" className={styles.icon} />
           <p className={styles.settings}>Settings</p>
         </div>

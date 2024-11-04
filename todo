@@ -1,15 +1,15 @@
 format date in newtask popup
 password view  ----done
-sudebar onclick color
+sudebar onclick color --done
 assignee is getting null
 checklist edit
 when task is added, it is  not loading autoatically  unless  it is refreshed
 without duedate ------done
 edit task
-shared task  file design
-update user credentials
+shared task  file design --done
+update user credentials --done
 add people feature
-welcome user text
+welcome user text --done
 
 ngrok for sharing  our  localhost
 command: ngrok http 3000(portnumber)

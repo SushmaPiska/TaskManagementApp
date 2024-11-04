@@ -17,14 +17,15 @@ body{
     /* position:fixed; */
     height: 100%;
     border-right: 1px solid #EDF5FE;
-    padding: 2rem;
+    
     box-sizing: border-box;
     flex: 1;
 }
 .header{
     display: flex;
     align-items: center;
-    margin-bottom: 2.5rem;
+    /* margin-bottom: 1rem; */
+    padding: 2rem;
 }
 
 .heading{
@@ -32,8 +33,9 @@ body{
 }
 .menuItem{
     display: flex;
+    padding: 0.8rem 2rem;
     align-items: center;
-    margin: 2rem 0;
+    margin-bottom: 1rem ;
     width: 100%;
     color: #707070;
     cursor: pointer;
