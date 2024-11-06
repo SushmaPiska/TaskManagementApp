@@ -3,7 +3,7 @@ import styles from "./Section.module.css";
 import TaskCard from "./TaskCard";
 import { isDateInPeriod } from "../../helper/dueDateFilter";
 
-function Section({ tasks, setDateSpace, duration }) {
+function Section({ tasks, setDateSpace, duration,setIsTaskDeleted }) {
   const [isLoading, setIsLoading] = useState(true);
   
 
@@ -17,9 +17,11 @@ function Section({ tasks, setDateSpace, duration }) {
       ) : (
         tasks?.map((task, index) => (
           
-          (isDateInPeriod(task.dueDate,duration) )
-            && <p key={index} className={styles.card}>
-              {console.log(task)}
+          (isDateInPeriod(task?.dueDate,duration) )
+            && 
+            
+            <p key={index} className={styles.card}>
+              {/* {console.log(task)} */}
             <TaskCard
               taskId={task._id}
               title={task.title}
@@ -29,6 +31,7 @@ function Section({ tasks, setDateSpace, duration }) {
               dueDate={task.dueDate}
               taskType={task.taskType}
               setDateSpace={setDateSpace}
+              setIsTaskDeleted={setIsTaskDeleted}
             />
           </p>
         ))

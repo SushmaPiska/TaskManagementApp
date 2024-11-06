@@ -17,13 +17,19 @@ function Board({
   inProgressTasks,
   doneTasks,
   setToDoTasks,
+  addTask,
+  setIsTaskCreated,
+  setIsTaskDeleted
 }) {
+  useEffect(() => {
+    console.log("Updated toDoTasks:", toDoTasks);
+  }, [toDoTasks]);
+
   // const storedUser = JSON.parse(localStorage.getItem("user"));
   // console.log(storedUser.name)
   // const userName = storedUser ? storedUser?.name : null;
   const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
-const userName = storedUser && storedUser.name ? storedUser.name : "Guest";  // Default to "Guest" if user or name is missing
-
+  const userName = storedUser && storedUser.name ? storedUser.name : "Guest"; // Default to "Guest" if user or name is missing
 
   const [todayDate, setTodayDate] = useState();
   const [dateSpace, setDateSpace] = useState(true);
@@ -33,9 +39,8 @@ const userName = storedUser && storedUser.name ? storedUser.name : "Guest";  // 
 
   const [isAddPeoplePopupOpen, setAddPeoplePopupOpen] = useState(false);
   const [taskType, setTaskType] = useState();
- 
 
-useEffect(() => {
+  useEffect(() => {
     setTodayDate(getTodayDate);
   });
   // useEffect(()=>{
@@ -69,6 +74,29 @@ useEffect(() => {
         }
       });
   };
+  const handleSave = (newTask) => {
+    // This will update the toDoTasks state in App.jsx
+    setToDoTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+  // const createTask = async (taskData) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${import.meta.env.VITE_BASE_URL}/api/auth/createTask`,
+  //       taskData
+  //     );
+  //     return response.data.task; // Return the created task
+  //   } catch (error) {
+  //     console.error("Error creating task:", error);
+  //     return null;
+  //   }
+  // };
+  
+  // const handleTaskSave = async (taskData) => {
+  //   const newTask = await createTask(taskData);
+  //   if (newTask) {
+  //     addTask(newTask); 
+  //   }
+  // };
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -99,7 +127,6 @@ useEffect(() => {
             value={duration}
             onChange={(e) => {
               setDuration(e.target.value);
-             
             }}
           >
             <option value="Today">Today</option>
@@ -114,9 +141,18 @@ useEffect(() => {
         <div className={styles.section}>
           <div className={styles.sectionHead}>
             <h3>Backlog</h3>
-            <img src={collapse_all} onClick={() => handleCollapse("backlog")} className={styles.collapseAllIcon}/>
+            <img
+              src={collapse_all}
+              onClick={() => handleCollapse("backlog")}
+              className={styles.collapseAllIcon}
+            />
           </div>
-          <Section tasks={backlogTasks} setDateSpace={setDateSpace} duration={duration}/>
+          <Section
+            tasks={backlogTasks}
+            setDateSpace={setDateSpace}
+            duration={duration}
+            setIsTaskDeleted={setIsTaskDeleted}
+          />
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
@@ -130,7 +166,13 @@ useEffect(() => {
               ref={popupRef}
             >
               {(close) => (
-                <NewTaskPopup setToDoTasks={setToDoTasks} closePopup={close} />
+                <NewTaskPopup
+                  setToDoTasks={setToDoTasks}
+                  closePopup={close}
+                  addTask={addTask}
+                  onSave={handleSave}
+                  setIsTaskCreated={setIsTaskCreated}
+                />
               )}
               {/* <NewTaskPopup setToDoTasks={setToDoTasks} /> */}
             </Popup>
@@ -139,11 +181,14 @@ useEffect(() => {
               alt=""
               className={styles.collapseAllIcon}
               onClick={() => handleCollapse("toDo")}
-              
             />
           </div>
           <div className={styles.toDo}>
-            <Section tasks={toDoTasks} setDateSpace={setDateSpace} duration={duration}/>
+            <Section
+              tasks={toDoTasks}
+              setDateSpace={setDateSpace}
+              duration={duration}
+            />
           </div>
         </div>
         <div className={styles.section}>
@@ -156,7 +201,11 @@ useEffect(() => {
               onClick={() => handleCollapse("inProgress")}
             />
           </div>
-          <Section tasks={inProgressTasks} setDateSpace={setDateSpace} duration={duration}/>
+          <Section
+            tasks={inProgressTasks}
+            setDateSpace={setDateSpace}
+            duration={duration}
+          />
         </div>
         <div className={styles.section}>
           <div className={styles.sectionHead}>
@@ -168,7 +217,11 @@ useEffect(() => {
               onClick={() => handleCollapse("done")}
             />
           </div>
-          <Section tasks={doneTasks} setDateSpace={setDateSpace} duration={duration}/>
+          <Section
+            tasks={doneTasks}
+            setDateSpace={setDateSpace}
+            duration={duration}
+          />
         </div>
       </div>
     </div>

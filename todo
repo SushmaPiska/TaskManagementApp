@@ -1,7 +1,7 @@
 format date in newtask popup
 password view  ----done
 sudebar onclick color --done
-assignee is getting null
+assignee is getting null  --done
 checklist edit
 when task is added, it is  not loading autoatically  unless  it is refreshed
 without duedate ------done

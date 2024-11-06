@@ -13,62 +13,49 @@ import TaskDetails from "./pages/TaskDetails";
 import SharedTask from "./components/SharedTask.jsx";
 
 function App() {
-  const [backlogTasks, setBacklogTasks] = useState();
-  const [toDoTasks, setToDoTasks] = useState();
-  const [inProgressTasks, setInProgressTasks] = useState();
-  const [doneTasks, setDoneTasks] = useState();
+  const [backlogTasks, setBacklogTasks] = useState([]);
+  const [toDoTasks, setToDoTasks] = useState([]);
+  const [inProgressTasks, setInProgressTasks] = useState([]);
+  const [doneTasks, setDoneTasks] = useState([]);
+  const [isTaskCreated, setIsTaskCreated] = useState(false);
+  const [isTaskDeleted, setIsTaskDeleted] = useState(false);
+
+
 
   useEffect(() => {
-    getAllTasksByType("backlog")
-      .then((res) => {
-        setBacklogTasks(res.data);
-      })
-      .catch((e) => {
-        console.log("Error message: " + e.message);
-        if (e.response) {
-          console.log("Server response:", e.response.data);
-        } else {
-          console.log("Error details:", e);
-        }
+   
+      Promise.all([
+        getAllTasksByType("backlog").then(res => setBacklogTasks(res.data)),
+        getAllTasksByType("toDo").then(res => setToDoTasks(res.data)),
+        getAllTasksByType("inProgress").then(res => setInProgressTasks(res.data)),
+        getAllTasksByType("done").then(res => setDoneTasks(res.data))
+      ]).catch(e => console.log("Error:", e))
+      .finally(() => {
+        setIsTaskCreated(false)
+        setIsTaskDeleted(false)
       });
-    getAllTasksByType("toDo")
-      .then((res) => {
-        setToDoTasks(res.data);
-      })
-      .catch((e) => {
-        console.log("Error message: " + e.message);
-        if (e.response) {
-          console.log("Server response:", e.response.data);
-        } else {
-          console.log("Error details:", e);
-        }
-      });
-    getAllTasksByType("inProgress")
-      .then((res) => {
-        setInProgressTasks(res.data);
-      })
-      .catch((e) => {
-        console.log("Error message: " + e.message);
-        if (e.response) {
-          console.log("Server response:", e.response.data);
-        } else {
-          console.log("Error details:", e);
-        }
-      });
-    getAllTasksByType("done")
-      .then((res) => {
-        setDoneTasks(res.data);
-      })
-      .catch((e) => {
-        console.log("Error message: " + e.message);
-        if (e.response) {
-          console.log("Server response:", e.response.data);
-        } else {
-          console.log("Error details:", e);
-        }
-      });
-  }, []);
-  //backlogTasks,toDoTasks,inProgressTasks,doneTasks
+    
+  }, [isTaskCreated,isTaskDeleted]);
+
+  const addTask = (newTask) => {
+    switch (newTask?.taskType) {
+      case "backlog":
+        setBacklogTasks((prevTasks) => [...prevTasks, newTask]);
+        break;
+      case "toDo":
+        setToDoTasks((prevTasks) => [...prevTasks, newTask]);
+      
+        break;
+      case "inProgress":
+        setInProgressTasks((prevTasks) => [...prevTasks, newTask]);
+        break;
+      case "done":
+        setDoneTasks((prevTasks) => [...prevTasks, newTask]);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <BrowserRouter>
@@ -87,6 +74,10 @@ function App() {
                 inProgressTasks={inProgressTasks}
                 doneTasks={doneTasks}
                 setToDoTasks={setToDoTasks}
+                addTask={addTask}
+                setIsTaskCreated={setIsTaskCreated}
+                setIsTaskDeleted={setIsTaskDeleted}
+                
               />
             }
           ></Route>

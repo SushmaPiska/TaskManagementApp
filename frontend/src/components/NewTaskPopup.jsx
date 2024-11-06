@@ -4,7 +4,7 @@ import deleteIcon from "../assets/delete.png";
 import axios from "axios";
 import SearchUser from "./SearchUser";
 
-function NewTaskPopup({ setToDoTasks, closePopup }) {
+function NewTaskPopup({ setToDoTasks, closePopup,onSave,addTask,setIsTaskCreated }) {
   // const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const [title, setTitle] = useState("");
@@ -16,37 +16,70 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
 
   const handleTaskSave = async (e) => {
     e.preventDefault();
-
     try {
-      console.log(assigneeEmail)
-      axios
-        .post(`${import.meta.env.VITE_BASE_URL}/api/auth/createTask`, {
-          title: title,
-          priority: priority,
-          assigneeEmail: assigneeEmail,
-          checkList: checkList,
-          dueDate: dueDate ? dueDate : "",
-          taskType: "toDo",
-        })
-        .then((res) => {
-          console.log(res);
-          closePopup();
-        })
-        .catch((e) => {
-          console.log("Error message: " + e.message);
-          if (e.response) {
-            console.log("Server response:", e.response.data);
-          } else {
-            console.log("Error details:", e);
-          }
-        });
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/createTask`, {
+        title,
+        priority,
+        assigneeEmail,
+        checkList,
+        dueDate,
+        taskType: "toDo",
+      });
+
+      const newTask = response.data.task;
+      addTask(newTask)
+      setIsTaskCreated(true)
+      // Pass newTask to parent (Board) to update the state
+      // onSave(newTask);
+      closePopup();
     } catch (error) {
       console.log(error);
     }
   };
 
+  // const handleTaskSave = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/createTask`, {
+  //       title,
+  //       priority,
+  //       assigneeEmail,
+  //       checkList,
+  //       dueDate,
+  //       taskType: "toDo",
+  //     });
+  //     // axios
+  //     //   .post(`${import.meta.env.VITE_BASE_URL}/api/auth/createTask`, {
+  //     //     title: title,
+  //     //     priority: priority,
+  //     //     assigneeEmail: assigneeEmail,
+  //     //     checkList: checkList,
+  //     //     dueDate: dueDate ? dueDate : "",
+  //     //     taskType: "toDo",
+  //     //   })
+  //     //   .then((res) => {
+  //     //     console.log(res);
+  //     //     closePopup();
+  //     //   })
+  //     //   .catch((e) => {
+  //     //     console.log("Error message: " + e.message);
+  //     //     if (e.response) {
+  //     //       console.log("Server response:", e.response.data);
+  //     //     } else {
+  //     //       console.log("Error details:", e);
+  //     //     }
+  //     //   });
+  //       const newTask = response.data.task;
+  //       onSave(newTask); 
+  //       setToDoTasks((prevTasks) => [...prevTasks, response.data]);
+  //       closePopup();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const handleAddItem = () => {
-    console.log(checkList);
     setCheckList((prevCheckList) => ({
       ...prevCheckList,
       [checkListItem]: false,

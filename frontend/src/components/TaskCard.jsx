@@ -19,8 +19,9 @@ function TaskCard({
   dueDate,
   taskType,
   setDateSpace,
+  setIsTaskDeleted
 }) {
-  console.log(assigneeEmail);
+  // console.log(assigneeEmail);
   // console.log(getShortForm(assigneeEmail))
   const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,7 +82,7 @@ function TaskCard({
           taskType: newType,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           console.log("task type updated successfully");
         })
         .catch((e) => {
@@ -167,7 +168,7 @@ function TaskCard({
         className={styles.popup}
         contentStyle={{ width: "25%" }}
       >
-        <DeletePopup closePopup={closeDeletePopup} taskId={taskId} />
+        <DeletePopup closePopup={closeDeletePopup} taskId={taskId} setIsTaskDeleted={setIsTaskDeleted}/>
       </Popup>
 
       <div className={styles.title} title={title}>{title}</div>

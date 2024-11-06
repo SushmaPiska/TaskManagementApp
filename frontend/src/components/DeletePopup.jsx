@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./DeletePopup.module.css";
 import axios from "axios";
-function DeletePopup({ closePopup,taskId }) {
+function DeletePopup({ closePopup,taskId ,setIsTaskDeleted}) {
   const handleDelete = (taskId) => {
     console.log(taskId)
     closePopup();
@@ -13,7 +13,7 @@ function DeletePopup({ closePopup,taskId }) {
           
         )
         .then((res) => {
-         
+          setIsTaskDeleted(true)
           console.log("task deleted successfully");
 
         })
