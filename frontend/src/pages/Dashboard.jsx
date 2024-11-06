@@ -56,7 +56,7 @@ function Dashboard() {
   const handleLogout = async () => {
     try {
       axios
-        .post(`${VITE_BASE_URL}/api/auth/logout`, {
+        .post(`${import.meta.env.VITE_BASE_URL}/api/auth/logout`, {
           withCredentials: true,
         })
         .then((response) => {
