@@ -8,11 +8,12 @@
 .cardNav {
   display: flex;
   margin-bottom: 0.8rem;
-  /* align-items: center; */
+  align-items: center;
 }
 .priorityText {
   font-size: 0.53rem;
   margin-left: 0.5rem;
+  color: #707070;
 }
 .high {
   width: 0.6rem;
@@ -31,6 +32,13 @@
   height: 0.6rem;
   background-color: #63c05b;
   border-radius: 50%;
+}
+.assigneeShort{
+  font-size: 0.5rem;
+  background-color: #FFEBEB;
+  border-radius: 50%;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
 }
 .menu {
   position: absolute;

@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTask, deleteOneTypeTasks, getAllTasksByType, getTaskById, getTasksByPriority } from '../controllers/task.controller.js';
+import { createTask,searchUsers, deleteOneTypeTasks, getAllTasksByType, getTaskById, getTasksByPriority } from '../controllers/task.controller.js';
 import  authorization  from '../middlewares/authorization.js';
 
 import { deleteTask } from '../controllers/task.controller.js';
@@ -12,6 +12,7 @@ const router=express.Router();
 router.post('/createTask',
     // authorization,
     createTask)
+router.get('/searchUsers',searchUsers)
 router.get('/getTaskById/:id',getTaskById)
 
 router.post('/getAllTasksByType',getAllTasksByType)

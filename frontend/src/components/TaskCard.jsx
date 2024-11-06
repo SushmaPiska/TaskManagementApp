@@ -14,12 +14,14 @@ function TaskCard({
   taskId,
   title,
   priority,
-  assignee,
+  assigneeEmail,
   checkList,
   dueDate,
   taskType,
   setDateSpace,
 }) {
+  console.log(assigneeEmail);
+  // console.log(getShortForm(assigneeEmail))
   const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
@@ -28,8 +30,8 @@ function TaskCard({
   const menuToggle = () => setIsMenuOpen(!isMenuOpen);
 
   const openDeletePopup = () => {
-    setIsMenuOpen(false); // Close the menu first
-    setDeletePopupOpen(true); // Then open delete popup
+    setIsMenuOpen(false); 
+    setDeletePopupOpen(true);
   };
 
   const closeDeletePopup = () => setDeletePopupOpen(false);
@@ -121,7 +123,9 @@ function TaskCard({
         <div className={styles.priorityText}>
           {priority.toUpperCase()} PRIORITY
         </div>
-        <div className={styles.assignee}>{getShortForm(assignee)}</div>
+        {assigneeEmail &&  <div className={styles.assigneeShort}>{getShortForm(assigneeEmail)}
+          
+        </div>}
         <img
           src={dots}
           alt=""

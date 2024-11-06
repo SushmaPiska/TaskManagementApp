@@ -33,6 +33,7 @@
     font-size: 0.8rem;
     justify-content: space-between;
     background-color: #ebefef;
+    align-items: center;
 
 }
 .ball{
@@ -51,6 +52,7 @@
 .lowColor{
     background-color: #63C05B;
 }
+
 .assignDiv{
     width: 100%;
     display: flex;
@@ -59,12 +61,9 @@
     margin-bottom: 1rem;
 }
 .assigneeInput{
-    border: 1px solid #E2E2E2;
-    outline: none;
+   
     width: 88%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
+  
 
 }
 .checkListItem{

@@ -16,14 +16,15 @@ function Section({ tasks, setDateSpace, duration }) {
         <p>Loading...</p>
       ) : (
         tasks?.map((task, index) => (
-          // console.log(task.dueDate+" "+isDateInCurrentWeek(task.dueDate))
+          
           (isDateInPeriod(task.dueDate,duration) )
             && <p key={index} className={styles.card}>
+              {console.log(task)}
             <TaskCard
               taskId={task._id}
               title={task.title}
               priority={task.priority}
-              assignee={task.assignee}
+              assigneeEmail={task.assigneeEmail}
               checkList={task.checkList}
               dueDate={task.dueDate}
               taskType={task.taskType}

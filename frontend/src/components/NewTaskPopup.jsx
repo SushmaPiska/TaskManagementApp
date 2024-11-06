@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styles from "./NewTaskPopup.module.css";
 import deleteIcon from "../assets/delete.png";
 import axios from "axios";
+import SearchUser from "./SearchUser";
 
 function NewTaskPopup({ setToDoTasks, closePopup }) {
   // const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("");
-  const [assignee, setAssignee] = useState("");
+  const [assigneeEmail, setAssigneeEmail] = useState("");
   const [checkList, setCheckList] = useState({});
   const [checkListItem, setCheckListItem] = useState("");
   const [dueDate, setDueDate] = useState(null);
@@ -17,13 +18,14 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
     e.preventDefault();
 
     try {
+      console.log(assigneeEmail)
       axios
         .post(`${import.meta.env.VITE_BASE_URL}/api/auth/createTask`, {
           title: title,
           priority: priority,
-          assignee: assignee,
+          assigneeEmail: assigneeEmail,
           checkList: checkList,
-          dueDate: dueDate?dueDate:"",
+          dueDate: dueDate ? dueDate : "",
           taskType: "toDo",
         })
         .then((res) => {
@@ -76,7 +78,9 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
           onClick={(e) => {
             setPriority("high");
           }}
-          style={{ backgroundColor: priority === "high" ? "#ebefef" : "transparent" }}
+          style={{
+            backgroundColor: priority === "high" ? "#ebefef" : "transparent",
+          }}
         >
           <div className={`${styles.highColor} ${styles.ball}`}></div>
           <div className={styles.priorityName}>HIGH PRIORITY</div>
@@ -85,9 +89,10 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
           className={`${styles.moderatePriority} ${styles.priorityItem}`}
           value="high"
           onClick={(e) => setPriority("moderate")}
-          style={{ backgroundColor: priority === "moderate" ? "#ebefef" : "transparent" }}
-
-          
+          style={{
+            backgroundColor:
+              priority === "moderate" ? "#ebefef" : "transparent",
+          }}
         >
           <div className={`${styles.moderateColor}  ${styles.ball}`}></div>
           <div className={styles.priorityName}>MODERATE PRIORITY</div>
@@ -96,8 +101,9 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
           className={`${styles.lowPriority} ${styles.priorityItem}`}
           value="high"
           onClick={(e) => setPriority("low")}
-          style={{ backgroundColor: priority === "low" ? "#ebefef" : "transparent" }}
-
+          style={{
+            backgroundColor: priority === "low" ? "#ebefef" : "transparent",
+          }}
         >
           <div className={`${styles.lowColor} ${styles.ball}`}></div>
           <div className={styles.priorityName}>LOW PRIORITY</div>
@@ -105,13 +111,15 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
       </div>
       <div className={styles.assignDiv}>
         <label htmlFor="assignee">Assign to</label>
-        <input
+        <div className={styles.assigneeInput}>
+        <SearchUser setAssigneeEmail={setAssigneeEmail}/></div>
+        {/* <input
           type="text"
           placeholder="Add an assignee"
           className={styles.assigneeInput}
           value={assignee}
           onChange={(e) => setAssignee(e.target.value)}
-        />
+        /> */}
       </div>
       <label htmlFor="checkList">
         Checklist (1/3) <span className={styles.requiredStar}>*</span>
@@ -171,7 +179,9 @@ function NewTaskPopup({ setToDoTasks, closePopup }) {
           className={styles.selectDueDate}
           onChange={(e) => setDueDate(e.target.value)}
         />
-        <button className={styles.cancelBtn} onClick={closePopup}>Cancel</button>
+        <button className={styles.cancelBtn} onClick={closePopup}>
+          Cancel
+        </button>
         <button className={styles.saveBtn} onClick={handleTaskSave}>
           Save
         </button>

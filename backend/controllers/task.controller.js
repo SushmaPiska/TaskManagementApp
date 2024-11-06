@@ -1,20 +1,23 @@
 import Task from "../models/task.model.js";
 import mongoose from "mongoose";
 import { isAuth } from "../utils/isAuth.js";
-
+import User from "../models/user.model.js";
 export const createTask = async (req, res) => {
   try {
-    const { title, priority, assignee, checkList, dueDate, taskType } =
+    const { title, priority, assigneeEmail, checkList, dueDate, taskType } =
       req.body;
 
-    const assigneeId = mongoose.Types.ObjectId.isValid(assignee)
-      ? mongoose.Types.ObjectId(assignee)
-      : null;
+      if(assigneeEmail){
+        const assignee = await User.findOne({ email: assigneeEmail }) 
+        if (!assignee) {
+          return res.status(400).json({ message: "Assignee not found" });
+        }
+      }
 
     const task = new Task({
       title,
       priority,
-      assignee: assigneeId,
+      assigneeEmail: assigneeEmail,
       checkList,
       dueDate,
       taskType,
@@ -27,6 +30,20 @@ export const createTask = async (req, res) => {
     res.status(500).json({ message: "Task not created" });
   }
 };
+export const searchUsers = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const users = await User.find({
+      email: { $regex: query, $options: "i" }
+    }).select("email _id");
+
+    res.status(200).json(users || []);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users" });
+  }
+};
+
+
 
 export const getTaskById = async (req, res) => {
   const { id } = req.params;

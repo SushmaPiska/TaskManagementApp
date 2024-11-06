@@ -13,10 +13,8 @@ const TaskSchema=new mongoose.Schema({
         required:true,
         enum:["high","moderate", "low"],
     },
-    assignee:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required: false,
+    assigneeEmail:{
+        type:String,
     },
     checkList: {
         type: Map,  
@@ -34,7 +32,13 @@ const TaskSchema=new mongoose.Schema({
         enum:["toDo","backlog", "inProgress", "done"],
     }
 })
-
+// TaskSchema.virtual('assignee', {
+//     ref: 'User', 
+//     localField: 'assigneeEmail', 
+//     foreignField: 'email', 
+//     justOne: true, 
+//   });
+// TaskSchema.set('toJSON', { virtuals: true });
 const Task=mongoose.model('Task',TaskSchema);
 
 export default Task
