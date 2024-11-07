@@ -3,13 +3,14 @@ password view  ----done
 sudebar onclick color --done
 assignee is getting null  --done
 checklist edit
-when task is added, it is  not loading autoatically  unless  it is refreshed ---done
+when task is added, it is  not loading automatically  unless  it is refreshed ---done
 without duedate ------done
 edit task
 shared task  file design --done
 update user credentials --done
 add people feature
 welcome user text --done
+toast notifications 
 
 ngrok for sharing  our  localhost
 command: ngrok http 3000(portnumber)

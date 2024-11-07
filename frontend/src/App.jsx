@@ -11,7 +11,8 @@ import Settings from "./components/Settings";
 import { getAllTasksByType } from "../services/getAllTasks";
 import TaskDetails from "./pages/TaskDetails";
 import SharedTask from "./components/SharedTask.jsx";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [backlogTasks, setBacklogTasks] = useState([]);
   const [toDoTasks, setToDoTasks] = useState([]);
@@ -61,6 +62,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <ToastContainer />
       <Routes>
         <Route path="/" element={<HomePage />}>
           <Route index element={<Register />} />

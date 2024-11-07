@@ -3,8 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Register.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+// toast.configure();
 export default function Register() {
+  
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const [name, setName] = useState("");
@@ -77,6 +81,7 @@ export default function Register() {
           password,
           confirmPassword,
         });
+        toast.success("Registration successful!");
         navigate("/login");
       } catch (err) {
         setLoading(false);

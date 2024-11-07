@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "./DeletePopup.module.css";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function DeletePopup({ closePopup, taskId, setIsTaskDeleted = () => {} }) {
   const handleDelete = async(taskId) => {
     // console.log(taskId);
@@ -14,7 +17,7 @@ function DeletePopup({ closePopup, taskId, setIsTaskDeleted = () => {} }) {
       console.log(typeof setIsTaskDeleted); 
       setIsTaskDeleted(true);
       console.log("task deleted successfully");
-
+      toast.success("task deleted successfully");
      
       closePopup();
     } catch (error) {

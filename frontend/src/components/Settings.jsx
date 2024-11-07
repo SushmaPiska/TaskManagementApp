@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import styles from "./Settings.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Settings() {
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -16,9 +19,10 @@ function Settings() {
   const [passwordError, setPasswordError] = useState(false);
   const [backendError, setBackendError] = useState("");
 
-
+  const navigate=useNavigate()
 
   const handleUpdateName = async () => {
+    
     // e.preventDefault();
     const user = JSON.parse(localStorage.getItem("user"));
     try {
@@ -28,7 +32,8 @@ function Settings() {
           console.log(res);
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          window.location.href = "/login";
+          toast.success("Name updated successfully")
+          navigate('/login')
           
         })
         .catch((e) => {
@@ -54,7 +59,8 @@ function Settings() {
           console.log(res);
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          window.location.href = "/login";
+          toast.success("Email updated successfully")
+          navigate('/login')
         })
         .catch((e) => {
           console.log("Error message: " + e.message);
@@ -79,7 +85,8 @@ function Settings() {
           console.log(res);
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          window.location.href = "/login";
+          toast.success("Password updated successfully")
+          navigate('/login')
         })
         .catch((e) => {
           console.log("Error message: " + e.message);

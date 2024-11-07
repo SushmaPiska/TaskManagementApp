@@ -3,6 +3,8 @@ import styles from "./NewTaskPopup.module.css";
 import deleteIcon from "../assets/delete.png";
 import axios from "axios";
 import SearchUser from "./SearchUser";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function NewTaskPopup({ setToDoTasks, closePopup,onSave,addTask,setIsTaskCreated }) {
   // const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -31,6 +33,7 @@ function NewTaskPopup({ setToDoTasks, closePopup,onSave,addTask,setIsTaskCreated
       setIsTaskCreated(true)
       // Pass newTask to parent (Board) to update the state
       // onSave(newTask);
+      toast.success("Task created successfully");
       closePopup();
     } catch (error) {
       console.log(error);
