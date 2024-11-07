@@ -19,6 +19,7 @@ function App() {
   const [doneTasks, setDoneTasks] = useState([]);
   const [isTaskCreated, setIsTaskCreated] = useState(false);
   const [isTaskDeleted, setIsTaskDeleted] = useState(false);
+  const [isTaskTypeChanged, setIsTaskTypeChanged] = useState(false);
 
 
 
@@ -33,9 +34,10 @@ function App() {
       .finally(() => {
         setIsTaskCreated(false)
         setIsTaskDeleted(false)
+        setIsTaskTypeChanged(false)
       });
     
-  }, [isTaskCreated,isTaskDeleted]);
+  }, [isTaskDeleted,isTaskCreated,isTaskTypeChanged]);
 
   const addTask = (newTask) => {
     switch (newTask?.taskType) {
@@ -77,7 +79,7 @@ function App() {
                 addTask={addTask}
                 setIsTaskCreated={setIsTaskCreated}
                 setIsTaskDeleted={setIsTaskDeleted}
-                
+                setIsTaskTypeChanged={setIsTaskTypeChanged}
               />
             }
           ></Route>

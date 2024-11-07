@@ -58,7 +58,7 @@ export const getTaskById = async (req, res) => {
 
 export const getAllTasksByType = async (req, res) => {
   try {
-    const isAuthenticated = isAuth(req);
+    // const isAuthenticated = isAuth(req);
     const {taskType}=req.body
     const tasks= await Task.find({ taskType: taskType })
     // const tasks = isAuthenticated

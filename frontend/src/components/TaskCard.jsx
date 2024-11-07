@@ -19,7 +19,8 @@ function TaskCard({
   dueDate,
   taskType,
   setDateSpace,
-  setIsTaskDeleted
+  setIsTaskDeleted,
+  setIsTaskTypeChanged
 }) {
   // console.log(assigneeEmail);
   // console.log(getShortForm(assigneeEmail))
@@ -31,7 +32,7 @@ function TaskCard({
   const menuToggle = () => setIsMenuOpen(!isMenuOpen);
 
   const openDeletePopup = () => {
-    setIsMenuOpen(false); 
+    setIsMenuOpen(false);
     setDeletePopupOpen(true);
   };
 
@@ -40,11 +41,10 @@ function TaskCard({
   const handleShare = async () => {
     try {
       const BASE_URL =
-      import.meta.env.MODE === "development"
-        ? "http://localhost:5173"
-        : "https://taskmanagementapp-0mlj.onrender.com"
-    
-    
+        import.meta.env.MODE === "development"
+          ? "http://localhost:5173"
+          : "https://taskmanagementapp-0mlj.onrender.com";
+
       const link = `${BASE_URL}/taskDetails/${taskId}`;
       await navigator.clipboard.writeText(link);
       setDateSpace(false);
@@ -78,11 +78,15 @@ function TaskCard({
     }
     try {
       axios
-        .put(`${import.meta.env.VITE_BASE_URL}/api/auth/updateTaskType/${taskId}`, {
-          taskType: newType,
-        })
+        .put(
+          `${import.meta.env.VITE_BASE_URL}/api/auth/updateTaskType/${taskId}`,
+          {
+            taskType: newType,
+          }
+        )
         .then((res) => {
           // console.log(res);
+          setIsTaskTypeChanged(true)
           console.log("task type updated successfully");
         })
         .catch((e) => {
@@ -113,10 +117,10 @@ function TaskCard({
   /////////////////////////////
   const now = new Date();
   let inCompleteClass;
-  if(dueDate < now.getDate()){
-    inCompleteClass=styles.redDate
+  if (dueDate < now.getDate()) {
+    inCompleteClass = styles.redDate;
   }
-//////////////////////////////////
+  //////////////////////////////////
   return (
     <div className={styles.container}>
       <div className={styles.cardNav}>
@@ -124,9 +128,11 @@ function TaskCard({
         <div className={styles.priorityText}>
           {priority.toUpperCase()} PRIORITY
         </div>
-        {assigneeEmail &&  <div className={styles.assigneeShort}>{getShortForm(assigneeEmail)}
-          
-        </div>}
+        {assigneeEmail && (
+          <div className={styles.assigneeShort}>
+            {getShortForm(assigneeEmail)}
+          </div>
+        )}
         <img
           src={dots}
           alt=""
@@ -168,10 +174,16 @@ function TaskCard({
         className={styles.popup}
         contentStyle={{ width: "25%" }}
       >
-        <DeletePopup closePopup={closeDeletePopup} taskId={taskId} setIsTaskDeleted={setIsTaskDeleted}/>
+        <DeletePopup
+          closePopup={closeDeletePopup}
+          taskId={taskId}
+          setIsTaskDeleted={setIsTaskDeleted}
+        />
       </Popup>
 
-      <div className={styles.title} title={title}>{title}</div>
+      <div className={styles.title} title={title}>
+        {title}
+      </div>
       <div className={styles.checkList}>
         <div className={styles.checkListHead}>
           <p>Checklist (0/3)</p>

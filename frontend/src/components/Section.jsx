@@ -3,7 +3,7 @@ import styles from "./Section.module.css";
 import TaskCard from "./TaskCard";
 import { isDateInPeriod } from "../../helper/dueDateFilter";
 
-function Section({ tasks, setDateSpace, duration,setIsTaskDeleted }) {
+function Section({ tasks, setDateSpace, duration,setIsTaskDeleted,setIsTaskTypeChanged }) {
   const [isLoading, setIsLoading] = useState(true);
   
 
@@ -32,6 +32,7 @@ function Section({ tasks, setDateSpace, duration,setIsTaskDeleted }) {
               taskType={task.taskType}
               setDateSpace={setDateSpace}
               setIsTaskDeleted={setIsTaskDeleted}
+              setIsTaskTypeChanged={setIsTaskTypeChanged}
             />
           </p>
         ))

@@ -19,7 +19,8 @@ function Board({
   setToDoTasks,
   addTask,
   setIsTaskCreated,
-  setIsTaskDeleted
+  setIsTaskDeleted,
+  setIsTaskTypeChanged
 }) {
   useEffect(() => {
     console.log("Updated toDoTasks:", toDoTasks);
@@ -152,6 +153,7 @@ function Board({
             setDateSpace={setDateSpace}
             duration={duration}
             setIsTaskDeleted={setIsTaskDeleted}
+          setIsTaskTypeChanged={setIsTaskTypeChanged}
           />
         </div>
         <div className={styles.section}>
@@ -188,6 +190,8 @@ function Board({
               tasks={toDoTasks}
               setDateSpace={setDateSpace}
               duration={duration}
+              setIsTaskDeleted={setIsTaskDeleted}
+            setIsTaskTypeChanged={setIsTaskTypeChanged}
             />
           </div>
         </div>
@@ -205,6 +209,8 @@ function Board({
             tasks={inProgressTasks}
             setDateSpace={setDateSpace}
             duration={duration}
+            setIsTaskDeleted={setIsTaskDeleted}
+            setIsTaskTypeChanged={setIsTaskTypeChanged}
           />
         </div>
         <div className={styles.section}>
@@ -221,6 +227,8 @@ function Board({
             tasks={doneTasks}
             setDateSpace={setDateSpace}
             duration={duration}
+            setIsTaskDeleted={setIsTaskDeleted}
+            setIsTaskTypeChanged={setIsTaskTypeChanged}
           />
         </div>
       </div>
