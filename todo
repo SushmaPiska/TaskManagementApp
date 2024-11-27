@@ -10,7 +10,7 @@ shared task  file design --done
 update user credentials --done
 add people feature
 welcome user text --done
-toast notifications 
+toast notifications --done
 
 ngrok for sharing  our  localhost
 command: ngrok http 3000(portnumber)

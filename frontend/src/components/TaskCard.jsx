@@ -9,7 +9,7 @@ import downArrow from "../assets/downArrow.png";
 import { formatDate } from "../../helper/formatDate";
 import { getShortForm } from "../../helper/getShortForm";
 import DeletePopup from "./DeletePopup";
-
+import NewTaskPopup from "./NewTaskPopup";
 function TaskCard({
   taskId,
   title,
@@ -37,7 +37,9 @@ function TaskCard({
   };
 
   const closeDeletePopup = () => setDeletePopupOpen(false);
-
+  const handleEdit=()=>{
+    
+  }
   const handleShare = async () => {
     try {
       const BASE_URL =
@@ -144,7 +146,10 @@ function TaskCard({
       {isMenuOpen && (
         <div className={styles.menu}>
           <ul>
-            <li className={styles.menuItem} onClick={menuToggle}>
+            <li className={styles.menuItem} onClick={()=>{
+              menuToggle();
+              handleEdit();
+              }}>
               Edit
             </li>
             <li

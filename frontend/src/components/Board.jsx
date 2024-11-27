@@ -10,6 +10,9 @@ import Section from "./Section.jsx";
 import AddPeoplePopup from "./AddPeoplePopup.jsx";
 import AddedPeopleSuccess from "./AddedPeopleSuccess.jsx";
 import { getTodayDate } from "../../helper/formatDate.js";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function Board({
   backlogTasks,
@@ -20,7 +23,8 @@ function Board({
   addTask,
   setIsTaskCreated,
   setIsTaskDeleted,
-  setIsTaskTypeChanged
+  setIsTaskTypeChanged,
+  setIsCollapsed
 }) {
   useEffect(() => {
     console.log("Updated toDoTasks:", toDoTasks);
@@ -64,6 +68,8 @@ function Board({
         data: { taskType: taskType },
       })
       .then((res) => {
+        setIsCollapsed(true)
+        toast.success(`All ${taskType} tasks collapsed`)
         console.log("Tasks deleted successfully:", res.data);
       })
       .catch((e) => {

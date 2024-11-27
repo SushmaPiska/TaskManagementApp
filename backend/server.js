@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 8000;
 const __dirname=path.resolve()
 
 app.use(express.json()); 
-const allowedOrigins = ['http://localhost:5173', 'https://taskmanagementapp-4.onrender.com','https://taskmanagementapp-0mlj.onrender.com'];
+const allowedOrigins = ['http://localhost:5173', 'https://fooddeliveryapp-24lz.onrender.com/'];
 
 app.use(cors({
   origin: function (origin, callback) {

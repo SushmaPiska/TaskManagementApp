@@ -21,7 +21,7 @@ function App() {
   const [isTaskCreated, setIsTaskCreated] = useState(false);
   const [isTaskDeleted, setIsTaskDeleted] = useState(false);
   const [isTaskTypeChanged, setIsTaskTypeChanged] = useState(false);
-
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
 
   useEffect(() => {
@@ -36,9 +36,10 @@ function App() {
         setIsTaskCreated(false)
         setIsTaskDeleted(false)
         setIsTaskTypeChanged(false)
+        setIsCollapsed(false)
       });
     
-  }, [isTaskDeleted,isTaskCreated,isTaskTypeChanged]);
+  }, [isTaskDeleted,isTaskCreated,isTaskTypeChanged,isCollapsed]);
 
   const addTask = (newTask) => {
     switch (newTask?.taskType) {
@@ -61,6 +62,7 @@ function App() {
   };
 
   return (
+    
     <BrowserRouter>
     <ToastContainer />
       <Routes>
@@ -82,6 +84,7 @@ function App() {
                 setIsTaskCreated={setIsTaskCreated}
                 setIsTaskDeleted={setIsTaskDeleted}
                 setIsTaskTypeChanged={setIsTaskTypeChanged}
+              setIsCollapsed={setIsCollapsed}
               />
             }
           ></Route>
