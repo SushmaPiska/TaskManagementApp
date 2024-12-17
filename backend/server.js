@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 8000;
 const __dirname=path.resolve()
 
 app.use(express.json()); 
-const allowedOrigins = ['http://localhost:5173', 'https://fooddeliveryapp-24lz.onrender.com/'];
+const allowedOrigins = ['http://localhost:5173', 'https://taskmanagementapp-0mlj.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -31,6 +31,8 @@ app.use(cors({
 
 
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+
+console.log(__dirname)
 
 app.use("/api/auth",userRouter);
 app.use("/api/auth",taskRouter);
